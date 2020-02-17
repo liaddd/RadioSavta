@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:padding="8dp"
+        android:gravity="center_vertical">
+
+    <TextView
+            android:id="@+id/recorded_list_item_number"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+
+    <LinearLayout
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+        <TextView
+                android:gravity="center_vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/text_16sp"
+                android:text="Some Title"
+                android:textColor="@android:color/white" />
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:textSize="@dimen/text_12sp"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:text="Some Sub Title"
+                android:textColor="@android:color/white" />
+
+    </LinearLayout>
+
+    <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="50:00"
+            android:textColor="@android:color/white" />
+
+    <TextView
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="29-05-2019"
+            android:textColor="@android:color/white" />
+
+    <ImageView
+            android:scaleType="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/ic_share_24dp" />
+
+</LinearLayout>

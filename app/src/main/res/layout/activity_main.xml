@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/black_gradient_background"
+        tools:context=".activities.MainActivity">
+
+    <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/main_activity_view_pager"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="@dimen/size_0dp"
+            app:layout_constraintBottom_toTopOf="@id/main_activity_tab_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.viewpager2.widget.ViewPager2>
+
+    <com.google.android.material.tabs.TabLayout
+            android:id="@+id/main_activity_tab_layout"
+            android:layout_width="@dimen/size_0dp"
+            android:layout_height="wrap_content"
+            android:background="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:tabIndicatorHeight="@dimen/size_0dp"
+            app:tabMode="fixed">
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <ImageView
+            android:id="@+id/main_activity_play_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:scaleType="center"
+            android:src="@drawable/play_button_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/main_activity_tab_layout"
+            app:layout_constraintEnd_toEndOf="@id/main_activity_tab_layout"
+            app:layout_constraintStart_toStartOf="@id/main_activity_tab_layout"
+            app:layout_constraintTop_toTopOf="@id/main_activity_tab_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

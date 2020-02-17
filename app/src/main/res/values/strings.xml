@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">RadioSavta</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem_ipsum">Lorem Ipsum Dolor Sit Amet, Consectetur Adispiscing Elit. Nunc Non Erat Interdum, Ultricies Lorem Id</string>
+</resources>

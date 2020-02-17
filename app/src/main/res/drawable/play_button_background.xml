@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+
+        <shape android:shape="oval">
+            <solid android:color="@color/green" />
+            <size
+                    android:width="@dimen/size_54dp"
+                    android:height="@dimen/size_54dp" />
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/ic_play_24dp"
+            android:right="@dimen/size_12dp"
+            android:left="@dimen/size_12dp"
+            android:top="@dimen/size_12dp"
+            android:bottom="@dimen/size_12dp"/>
+
+</layer-list>
