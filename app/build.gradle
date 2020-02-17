@@ -68,9 +68,6 @@ dependencies {
     implementation "org.koin:koin-core:$koin_version"
     implementation "org.koin:koin-core-ext:$koin_version"
 
-    // Blurry
-    implementation 'jp.wasabeef:blurry:3.0.0'
-
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha4'

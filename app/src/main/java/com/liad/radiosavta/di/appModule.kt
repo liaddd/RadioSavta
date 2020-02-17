@@ -6,4 +6,6 @@ import org.koin.dsl.module
 val appModule = module {
 
     single { RadioSavtaApplication.instance }
+
+    //single { RetrofitImpl.getRetrofit() }
 }
