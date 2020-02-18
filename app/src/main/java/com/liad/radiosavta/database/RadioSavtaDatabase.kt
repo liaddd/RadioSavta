@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.liad.radiosavta.models.PresentedUser
+import androidx.room.TypeConverters
+import com.liad.radiosavta.models.Program
+import com.liad.radiosavta.models.ProgramTimes
+import com.liad.radiosavta.models.User
 
-@Database(entities = [PresentedUser::class], version = 1)
+@TypeConverters(Converters::class)
+@Database(entities = [Program::class, ProgramTimes::class, User::class], version = 1 , exportSchema = false)
 abstract class RadioSavtaDatabase : RoomDatabase() {
 
-    abstract val dao: RadioSavtaDao
-
+    abstract fun dao() : RadioSavtaDao
 
     companion object {
         @Volatile

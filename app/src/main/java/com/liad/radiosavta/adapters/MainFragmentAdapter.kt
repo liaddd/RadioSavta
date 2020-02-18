@@ -16,7 +16,7 @@ class MainFragmentAdapter(fragmentActivity : FragmentActivity) : FragmentStateAd
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0 -> MainFragment.newInstance()
-            1 -> MusicFragment.newInstance()
+            1 -> InnerContainerFragment.newInstance()
             2 -> PlayFragment.newInstance()
             3 -> FriendsFragment.newInstance()
             4 -> SettingsFragment.newInstance()
