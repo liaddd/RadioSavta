@@ -4,6 +4,7 @@ import androidx.room.TypeConverter
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.liad.radiosavta.models.ProgramTimes
+import com.liad.radiosavta.models.RecordedShow
 import com.liad.radiosavta.models.User
 
 class Converters {
@@ -27,4 +28,16 @@ class Converters {
 
     @TypeConverter
     fun userToString(users: List<User?>?): String = Gson().toJson(users)
+
+
+    // Recorded Shows converter
+
+    @TypeConverter
+    fun stringToShows(data: String): List<RecordedShow?>? {
+        val listType = object : TypeToken<List<RecordedShow>>() {}.type
+        return Gson().fromJson(data, listType)
+    }
+
+    @TypeConverter
+    fun showsToString(recordedShows: List<RecordedShow?>?): String = Gson().toJson(recordedShows)
 }

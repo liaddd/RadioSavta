@@ -27,7 +27,9 @@ data class Program(
     val description: String? = null,
 
 
-    val users: List<User>? = null
+    val users: List<User>? = null,
+
+    val recorded_shows : List<RecordedShow>? = null
 
 ) {
 

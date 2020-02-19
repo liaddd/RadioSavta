@@ -3,6 +3,7 @@ package com.liad.radiosavta.database
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.liad.radiosavta.models.Program
 import com.liad.radiosavta.models.User
@@ -18,12 +19,15 @@ interface RadioSavtaDao {
     fun insertPrograms(programs: List<Program>)
 
     @Query("SELECT * from programs WHERE id = :id")
-    fun getProgramById(id: Int): LiveData<Program>
+    fun getProgramById(id: Int): LiveData<Program?>
 
     @Query("SELECT * FROM users")
     fun getUsers(): LiveData<List<User>>
 
     @Insert
     fun insertUsers(users: List<User>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertProgram(program: Program)
 
 }

@@ -80,7 +80,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     private fun setObservers() {
         programsViewModel.getPrograms()
-        programsViewModel.getCurrentPlayingSongTitle()
     }
 
     private fun onPlayPauseClicked() {

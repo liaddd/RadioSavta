@@ -10,7 +10,7 @@ class ProgramsViewModel(private val radioSavtaRepository: RadioRepository) : Vie
 
     fun getProgramsById(id : Int) = radioSavtaRepository.getProgramById(id)
 
-    fun getCurrentPlayingSongTitle() = radioSavtaRepository.getCurrentPlayingSongTitle()
+    fun getCurrentPlayingSongTitle() = radioSavtaRepository.statefulLiveDataCurrentSong
 
     fun getUsers() = radioSavtaRepository.statefulLiveDataUsers
 }

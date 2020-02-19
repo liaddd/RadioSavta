@@ -53,7 +53,7 @@ class PlayFragment : Fragment() {
         })
     }
 
-    fun changeText(newText: String) {
+    private fun changeText(newText: String) {
         play_fragment_text_view.text = newText
     }
 

@@ -24,22 +24,22 @@ fun changeFragment(
 }
 
 
-fun toast(context: Context, message: String , duration : Int = Toast.LENGTH_LONG) {
-    Toast.makeText(context , message , duration).show()
+fun toast(context: Context, message: String, duration: Int = Toast.LENGTH_LONG) {
+    Toast.makeText(context, message, duration).show()
 }
 
-fun <T> MutableList<T>.clearAndAddAll(newData : List<T>){
+fun <T> MutableList<T>.clearAndAddAll(newData: List<T>) {
     clear()
     addAll(newData)
 }
 
-fun convertIntToDay(day : Int) : String =  when(day){
-    0 -> {"Sundays"}
-    1 -> {"Mondays"}
-    2 -> {"Tuesdays"}
-    3 -> {"Wednesdays"}
-    4 -> {"Thursdays"}
-    5 -> {"Fridays"}
-    6 -> {"Saturdays"}
-    else -> {"not implemented"}
+fun convertIntToDay(day: Int): String = when (day) {
+    0 -> "Sundays"
+    1 -> "Mondays"
+    2 -> "Tuesdays"
+    3 -> "Wednesdays"
+    4 -> "Thursdays"
+    5 -> "Fridays"
+    6 -> "Saturdays"
+    else -> "not implemented"
 }

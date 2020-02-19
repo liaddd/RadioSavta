@@ -6,7 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import co.climacell.statefulLiveData.core.StatefulData
 import com.liad.radiosavta.R
+import com.liad.radiosavta.adapters.ProgramsAdapter
+import com.liad.radiosavta.viewmodels.ProgramsViewModel
+import kotlinx.android.synthetic.main.fragment_main.*
+import org.koin.android.ext.android.inject
+
 
 class MainFragment : Fragment() {
 
@@ -15,6 +24,9 @@ class MainFragment : Fragment() {
             return MainFragment()
         }
     }
+
+    private val programsAdapter = ProgramsAdapter()
+    private val programsViewModel: ProgramsViewModel by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,9 +39,41 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         initViews()
+        setObservers()
     }
 
+
     private fun initViews() {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        main_fragment_recycler_view.apply {
+            adapter = programsAdapter
+            layoutManager =
+                activity?.let { LinearLayoutManager(it, RecyclerView.HORIZONTAL, false) }
+        }
+    }
+
+    private fun setObservers() {
+        programsViewModel.getPrograms().observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is StatefulData.Success -> {
+                    programsAdapter.setPrograms(it.data.shuffled())
+                }
+                is StatefulData.Loading -> {
+                }
+                is StatefulData.Error -> {
+                }
+            }
+        })
+
+        programsViewModel.getCurrentPlayingSongTitle().observe(viewLifecycleOwner, Observer {
+            when (it) {
+                is StatefulData.Success -> {
+                    main_fragment_propress_bar.visibility = View.GONE
+                    main_fragment_song_name.text = it.data
+                }
+                is StatefulData.Loading -> {
+                    main_fragment_propress_bar.visibility = View.VISIBLE
+                }
+            }
+        })
     }
 }

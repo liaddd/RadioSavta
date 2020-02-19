@@ -17,6 +17,7 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
 
     val statefulLiveDataPrograms: StatefulLiveData<List<Program>>
     val statefulLiveDataUsers: StatefulLiveData<List<User>>
+    val statefulLiveDataCurrentSong: StatefulLiveData<String>
 
     private val apiRequest: ApiRequest
     private val executor = Executors.newSingleThreadExecutor()
@@ -31,6 +32,7 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
 
         statefulLiveDataPrograms = getProgramsStatefulLiveData()
         statefulLiveDataUsers = getUsersStatefulLiveData()
+        statefulLiveDataCurrentSong = getCurrentPlayingSongTitle()
     }
 
     // Get Programs StatefulLiveData
@@ -84,6 +86,7 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
                 getProgramByIdFromApi(id).observeOnce(Observer { apiProgram ->
                     if (apiProgram is StatefulData.Success) {
                         programMutableStateful.putData(apiProgram.data)
+                        updateProgramInDatabase(apiProgram.data)
                     }
                 })
             } else {
@@ -94,6 +97,12 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
         return programMutableStateful
     }
 
+    private fun updateProgramInDatabase(program: Program) {
+        executor.submit {
+            dao.insertProgram(program)
+        }
+    }
+
     // Get Program By Id from DB
     private fun getProgramByIdFromDatabase(id: Int) = dao.getProgramById(id)
 
@@ -101,19 +110,19 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
     private fun getProgramByIdFromApi(id: Int) = apiRequest.getProgramById(id)
 
     // Get Users StatefulLiveData
-    fun getCurrentPlayingSongTitle(): StatefulLiveData<String> {
+    private fun getCurrentPlayingSongTitle(): StatefulLiveData<String> {
 
         val mutableSongTitle = MutableStatefulLiveData<String>()
         mutableSongTitle.putLoading()
 
-        getCurrentPlayingSongFromApi().observeForever { songTitle ->
+        getCurrentPlayingSongFromApi().observeOnce(Observer { songTitle ->
             if (songTitle is StatefulData.Success) {
                 Log.d("Liad", songTitle.data.toString())
                 mutableSongTitle.putData(songTitle.data.StreamTitle)
             } else if (songTitle is StatefulData.Error) {
                 Log.d("Liad", songTitle.throwable.localizedMessage)
             }
-        }
+        })
 
         return mutableSongTitle
     }
@@ -147,8 +156,8 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
         executor.submit {
             try {
                 dao.insertUsers(users)
-                Log.d("Liad" , "Users saved in Database Successfully")
-            }catch (e : Exception){
+                Log.d("Liad", "Users saved in Database Successfully")
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
         }
@@ -161,6 +170,7 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
     private fun getUsersFromDatabase(): LiveData<List<User>> = dao.getUsers()
 
     // Get Current Song playing from API
-    private fun getCurrentPlayingSongFromApi(): StatefulLiveData<StreamTitle> = apiRequest.getCurrentPlayingSongTitle()
+    private fun getCurrentPlayingSongFromApi(): StatefulLiveData<StreamTitle> =
+        apiRequest.getCurrentPlayingSongTitle()
 
 }

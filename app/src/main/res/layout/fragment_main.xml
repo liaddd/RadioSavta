@@ -1,16 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragments.MainFragment">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".fragments.MainFragment">
+
+    <ImageView
+            android:id="@+id/main_fragment_logo"
+            android:layout_width="@dimen/size_120dp"
+            android:layout_height="@dimen/size_120dp"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/radio_savta_icon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    <ProgressBar
+            app:layout_constraintTop_toBottomOf="@id/main_fragment_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:id="@+id/main_fragment_propress_bar"
+            android:layout_width="@dimen/size_32dp"
+            android:layout_height="@dimen/size_32dp"/>
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center"
+            android:id="@+id/main_fragment_song_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/size_16dp"
+            android:layout_marginStart="@dimen/size_32dp"
+            android:layout_marginEnd="@dimen/size_32dp"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/text_48sp"
-            android:text="Main Fragment"/>
+            android:textSize="@dimen/text_24sp"
+            android:gravity="center_horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_fragment_logo" />
+
+    <TextView
+            android:id="@+id/main_fragment_featured_shows"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/size_12dp"
+            android:layout_marginBottom="@dimen/size_8dp"
+            android:text="Featured Shows"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_24sp"
+            app:layout_constraintBottom_toTopOf="@+id/main_fragment_recycler_view"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/main_fragment_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/size_32dp"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

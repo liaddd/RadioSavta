@@ -34,6 +34,7 @@ class ProgramDetailsFragment : Fragment() {
 
     private lateinit var presentedByRV: RecyclerView
     private lateinit var recordedShowRV: RecyclerView
+
     private val programsViewModel: ProgramsViewModel by inject()
     private val presentedByAdapter = PresentedByAdapter()
     private val recordedShowsAdapter = RecordedShowsAdapter()
@@ -81,10 +82,25 @@ class ProgramDetailsFragment : Fragment() {
                     program.getCover() ?: program.users?.let { users -> users[0].getProfileImg() })
                 .into(program_details_fragment_image_view)
         }
-        program_details_fragment_hour_text_view.text = getString(R.string.hours , program.programTimes?.startTime , program.programTimes?.endTime)
+        program_details_fragment_hour_text_view.text = getString(
+            R.string.hours,
+            program.programTimes?.startTime,
+            program.programTimes?.endTime
+        )
         program.users?.let { presentedByAdapter.setUsers(it) }
         program_details_fragment_time_text_view.text =
             convertIntToDay(program.programTimes?.dayOfWeek ?: 1)
+
+        program.recorded_shows?.let {
+            if (it.isNullOrEmpty()){
+                program_details_fragment_no_recorded_show_text.visibility = View.VISIBLE
+            }else{
+                program_details_fragment_no_recorded_show_text.visibility = View.GONE
+                recordedShowRV.visibility = View.VISIBLE
+                recordedShowsAdapter.setRecordedShow(it)
+
+            }
+        }
     }
 
     private fun showProgress(show: Boolean = true) {
