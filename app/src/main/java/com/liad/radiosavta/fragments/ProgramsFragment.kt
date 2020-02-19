@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.climacell.statefulLiveData.core.StatefulData
 import com.liad.radiosavta.R
@@ -27,7 +27,8 @@ class ProgramsFragment : Fragment() {
         }
     }
 
-    private val programAdapter = ProgramsAdapter().apply { listener = createAdapterListener() }
+    private val programAdapter =
+        ProgramsAdapter().apply {  listener = createAdapterListener() }
 
     private val programsViewModel: ProgramsViewModel by inject()
 
@@ -46,7 +47,10 @@ class ProgramsFragment : Fragment() {
     private fun initViews() {
         programs_fragment_recycler_view.apply {
             adapter = programAdapter
-            activity?.let { layoutManager = LinearLayoutManager(it, RecyclerView.VERTICAL, false) }
+            activity?.let {
+                layoutManager =
+                    GridLayoutManager(it, Constants.SPAN_COUNT, RecyclerView.VERTICAL, false)
+            }
         }
 
     }
@@ -76,11 +80,11 @@ class ProgramsFragment : Fragment() {
             override fun onClick(program: Program) {
                 activity?.let {
                     val bundle = Bundle()
-                    bundle.putInt(Constants.PROGRAM_ID , program.id ?: 0)
+                    bundle.putInt(Constants.PROGRAM_ID, program.id ?: 0)
                     changeFragment(
                         it.supportFragmentManager,
                         R.id.inner_fragment_frame_layout,
-                        MusicFragment.newInstance(bundle),
+                        ProgramDetailsFragment.newInstance(bundle),
                         true
                     )
                 }

@@ -18,17 +18,17 @@ import com.liad.radiosavta.models.Program
 import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.utils.extension.convertIntToDay
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
-import kotlinx.android.synthetic.main.fragment_music.*
+import kotlinx.android.synthetic.main.fragment_program_details.*
 import org.koin.android.ext.android.inject
 
 
-class MusicFragment : Fragment() {
+class ProgramDetailsFragment : Fragment() {
 
     companion object {
-        fun newInstance(bundle: Bundle? = null): MusicFragment {
-            val musicFragment = MusicFragment()
-            if (bundle != null) musicFragment.arguments = bundle
-            return musicFragment
+        fun newInstance(bundle: Bundle? = null): ProgramDetailsFragment {
+            val programDetailsFragment = ProgramDetailsFragment()
+            if (bundle != null) programDetailsFragment.arguments = bundle
+            return programDetailsFragment
         }
     }
 
@@ -42,7 +42,7 @@ class MusicFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_music, container, false)
+    ): View = inflater.inflate(R.layout.fragment_program_details, container, false)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -73,32 +73,33 @@ class MusicFragment : Fragment() {
     }
 
     private fun populateFields(program: Program) {
-        music_fragment_title_text.text = program.nameEn
-        music_fragment_secondary_title.text = program.description
+        program_details_fragment_title_text.text = program.nameEn
+        program_details_fragment_secondary_title.text = program.description
         activity?.let {
             Glide.with(it)
-                .load(program.getCover())
-                .into(music_fragment_image_view)
+                .load(
+                    program.getCover() ?: program.users?.let { users -> users[0].getProfileImg() })
+                .into(program_details_fragment_image_view)
         }
-        music_fragment_hour_text_view.text =
-            "${program.programTimes?.startTime} - ${program.programTimes?.endTime}"
+        program_details_fragment_hour_text_view.text = getString(R.string.hours , program.programTimes?.startTime , program.programTimes?.endTime)
         program.users?.let { presentedByAdapter.setUsers(it) }
-        music_fragment_time_text_view.text = convertIntToDay(program.programTimes?.dayOfWeek ?: 1)
+        program_details_fragment_time_text_view.text =
+            convertIntToDay(program.programTimes?.dayOfWeek ?: 1)
     }
 
     private fun showProgress(show: Boolean = true) {
-        music_fragment_progress_bar.visibility = if (show) View.VISIBLE else View.GONE
+        program_details_fragment_progress_bar.visibility = if (show) View.VISIBLE else View.GONE
     }
 
 
     private fun initViews() {
         activity?.let {
-            presentedByRV = music_fragment_presented_recycler_view.apply {
+            presentedByRV = program_details_fragment_presented_recycler_view.apply {
                 adapter = presentedByAdapter
                 layoutManager = LinearLayoutManager(it, RecyclerView.HORIZONTAL, false)
             }
 
-            recordedShowRV = music_fragment_recorded_shows_recycler_view.apply {
+            recordedShowRV = program_details_fragment_recorded_shows_recycler_view.apply {
                 adapter = recordedShowsAdapter
                 layoutManager = LinearLayoutManager(it, RecyclerView.VERTICAL, false)
             }

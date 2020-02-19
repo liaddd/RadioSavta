@@ -1,36 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/music_fragment_container"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/program_details_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".fragments.MusicFragment">
+        tools:context=".fragments.ProgramDetailsFragment">
+
+    <androidx.cardview.widget.CardView
+            android:id="@+id/program_details_fragment_image_view_container"
+            app:cardCornerRadius="5dp"
+            android:layout_centerHorizontal="true"
+            app:cardElevation="2dp"
+            android:layout_marginTop="@dimen/size_32dp"
+            app:cardUseCompatPadding="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
     <ImageView
-            android:id="@+id/music_fragment_image_view"
+            android:id="@+id/program_details_fragment_image_view"
             android:layout_width="@dimen/size_150dp"
             android:layout_height="@dimen/size_150dp"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/size_32dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
             android:src="@drawable/radiosavta" />
 
+    </androidx.cardview.widget.CardView>
+
     <TextView
-            android:id="@+id/music_fragment_title_text"
+            android:id="@+id/program_details_fragment_title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/music_fragment_image_view"
+            android:layout_below="@+id/program_details_fragment_image_view_container"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/size_16dp"
             android:textColor="@android:color/white"
             android:textSize="@dimen/size_24dp" />
 
     <TextView
-            android:id="@+id/music_fragment_secondary_title"
+            android:id="@+id/program_details_fragment_secondary_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/music_fragment_title_text"
+            android:layout_below="@+id/program_details_fragment_title_text"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="@dimen/size_16dp"
             android:layout_marginTop="@dimen/size_16dp"
@@ -41,11 +52,11 @@
 
 
     <TextView
-            android:id="@+id/music_fragment_time_text_view"
+            android:id="@+id/program_details_fragment_time_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/music_fragment_secondary_title"
-            android:layout_alignStart="@id/music_fragment_presented_by_text_view"
+            android:layout_below="@+id/program_details_fragment_secondary_title"
+            android:layout_alignStart="@id/program_details_fragment_presented_by_text_view"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/size_24dp"
             android:drawableStart="@drawable/ic_date_24dp"
@@ -55,11 +66,11 @@
             android:textSize="@dimen/text_12sp" />
 
     <TextView
-            android:id="@+id/music_fragment_hour_text_view"
+            android:id="@+id/program_details_fragment_hour_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/music_fragment_time_text_view"
-            android:layout_alignStart="@+id/music_fragment_time_text_view"
+            android:layout_below="@+id/program_details_fragment_time_text_view"
+            android:layout_alignStart="@+id/program_details_fragment_time_text_view"
             android:layout_centerHorizontal="true"
             android:drawableStart="@drawable/ic_time_24dp"
             android:drawablePadding="@dimen/size_8dp"
@@ -68,10 +79,10 @@
             android:textSize="@dimen/text_12sp" />
 
     <TextView
-            android:id="@+id/music_fragment_presented_by_text_view"
+            android:id="@+id/program_details_fragment_presented_by_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/music_fragment_hour_text_view"
+            android:layout_below="@+id/program_details_fragment_hour_text_view"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/size_24dp"
             android:text="Presented By"
@@ -79,32 +90,32 @@
             android:textSize="@dimen/text_18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/music_fragment_presented_recycler_view"
+            android:id="@+id/program_details_fragment_presented_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/music_fragment_presented_by_text_view"
+            android:layout_below="@+id/program_details_fragment_presented_by_text_view"
             android:orientation="horizontal" />
 
     <TextView
-            android:id="@+id/music_fragment_recorded_text_view"
+            android:id="@+id/program_details_fragment_recorded_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/music_fragment_presented_recycler_view"
+            android:layout_below="@+id/program_details_fragment_presented_recycler_view"
             android:layout_centerHorizontal="true"
             android:text="Recorded Shows"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_18sp" />
 
     <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/music_fragment_recorded_shows_recycler_view"
+            android:id="@+id/program_details_fragment_recorded_shows_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/music_fragment_recorded_text_view" />
+            android:layout_below="@+id/program_details_fragment_recorded_text_view" />
 
     <ProgressBar
             android:visibility="gone"
             android:layout_centerInParent="true"
-            android:id="@+id/music_fragment_progress_bar"
+            android:id="@+id/program_details_fragment_progress_bar"
             android:layout_width="@dimen/size_60dp"
             android:layout_height="@dimen/size_60dp"/>
 </RelativeLayout>

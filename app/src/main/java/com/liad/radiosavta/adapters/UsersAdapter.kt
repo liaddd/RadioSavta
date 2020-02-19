@@ -4,20 +4,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.liad.radiosavta.R
 import com.liad.radiosavta.models.User
 import com.liad.radiosavta.utils.extension.clearAndAddAll
 
-class PresentedByAdapter : RecyclerView.Adapter<PresentedByAdapter.ViewHolder>() {
+class UsersAdapter : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
     private val usersList = mutableListOf<User>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.presented_by_list_item,
+                R.layout.users_list_item,
                 parent,
                 false
             )
@@ -32,9 +34,14 @@ class PresentedByAdapter : RecyclerView.Adapter<PresentedByAdapter.ViewHolder>()
 
         val user = usersList[position]
 
+
         Glide.with(holder.itemView.context)
             .load(user.getProfileImg())
-            .into(holder.imageView)
+            .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
+            .centerCrop()
+            .into(holder.coverImage)
+
+        holder.nameTV.text = user.name
     }
 
     fun setUsers(data: List<User>) {
@@ -43,6 +50,7 @@ class PresentedByAdapter : RecyclerView.Adapter<PresentedByAdapter.ViewHolder>()
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.presented_by_item_image_view)
+        val nameTV: TextView = itemView.findViewById(R.id.users_list_item_name_text_view)
+        val coverImage: ImageView = itemView.findViewById(R.id.users_list_item_cover_image_view)
     }
 }

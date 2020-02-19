@@ -31,7 +31,8 @@ data class Program(
 
 ) {
 
-    fun getCover(): String {
+    fun getCover(): String? {
+        if (coverImage == null) return null
         return BASE_IMAGE_URL + coverImage
     }
 }
