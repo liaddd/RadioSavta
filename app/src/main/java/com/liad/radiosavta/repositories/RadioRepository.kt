@@ -81,7 +81,7 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
 
         getProgramByIdFromDatabase(id).observeOnce(Observer { dbProgram ->
             Log.d("Liad", "getting Program $id from Database")
-            if (dbProgram == null) {
+            if (dbProgram == null || dbProgram.recorded_shows.isNullOrEmpty()) {
                 Log.d("Liad", "getting Program $id from Api")
                 getProgramByIdFromApi(id).observeOnce(Observer { apiProgram ->
                     if (apiProgram is StatefulData.Success) {

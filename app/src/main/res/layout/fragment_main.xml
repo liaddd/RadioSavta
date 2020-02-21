@@ -8,35 +8,36 @@
 
     <ImageView
             android:id="@+id/main_fragment_logo"
-            android:layout_width="@dimen/size_120dp"
-            android:layout_height="@dimen/size_120dp"
-            android:layout_marginTop="@dimen/size_16dp"
+            android:layout_width="@dimen/size_150dp"
+            android:layout_height="@dimen/size_150dp"
+            android:layout_marginTop="@dimen/size_32dp"
             android:adjustViewBounds="true"
+            android:contentDescription="@null"
             android:scaleType="centerCrop"
-            android:src="@drawable/radio_savta_icon"
+            android:src="@drawable/savta_rounded_logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     <ProgressBar
-            app:layout_constraintTop_toBottomOf="@id/main_fragment_logo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="@dimen/size_16dp"
-            android:id="@+id/main_fragment_propress_bar"
+            android:id="@+id/main_fragment_progress_bar"
             android:layout_width="@dimen/size_32dp"
-            android:layout_height="@dimen/size_32dp"/>
+            android:layout_height="@dimen/size_32dp"
+            app:layout_constraintBottom_toTopOf="@+id/main_fragment_featured_shows"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/main_fragment_logo" />
 
     <TextView
             android:id="@+id/main_fragment_song_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_16dp"
             android:layout_marginStart="@dimen/size_32dp"
             android:layout_marginEnd="@dimen/size_32dp"
+            android:gravity="center_horizontal"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_24sp"
-            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/main_fragment_featured_shows"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_fragment_logo" />

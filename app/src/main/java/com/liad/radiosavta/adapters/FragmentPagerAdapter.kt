@@ -6,10 +6,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.liad.radiosavta.fragments.*
 
 
-class MainFragmentAdapter(fragmentActivity: FragmentActivity) :
-    FragmentStateAdapter(fragmentActivity) {
+class FragmentPagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
 
-    private val fragments = listOf(
+    private val fragments = mutableListOf(
         MainFragment.newInstance(),
         InnerContainerFragment.newInstance(),
         PlayFragment.newInstance(),

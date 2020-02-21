@@ -1,8 +1,6 @@
 package com.liad.radiosavta.utils
 
-import android.content.Context
 import android.media.MediaPlayer
-import android.net.Uri
 
 class PlayAudioManager {
 
@@ -10,9 +8,15 @@ class PlayAudioManager {
         var mediaPlayer: MediaPlayer? = null
             private set
 
-        fun initMediaPlayer(context: Context): MediaPlayer? {
+        fun initMediaPlayer(): MediaPlayer? {
             if (mediaPlayer == null) {
-                mediaPlayer = MediaPlayer.create(context, Uri.parse(Constants.PLAY_URL))
+                mediaPlayer = MediaPlayer()
+                try {
+                    mediaPlayer?.setDataSource(Constants.PLAY_URL)
+                    mediaPlayer?.prepare()
+                } catch (e: IllegalArgumentException) {
+                    e.printStackTrace()
+                }
             }
             return mediaPlayer
         }

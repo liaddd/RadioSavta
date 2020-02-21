@@ -12,8 +12,10 @@ import com.liad.radiosavta.utils.extension.changeFragment
 class InnerContainerFragment : Fragment() {
 
     companion object {
-        fun newInstance(): InnerContainerFragment {
-            return InnerContainerFragment()
+        fun newInstance(bundle: Bundle? = null): InnerContainerFragment {
+            val innerContainerFragment = InnerContainerFragment()
+            if (bundle != null) innerContainerFragment.arguments = bundle
+            return innerContainerFragment
         }
     }
 
@@ -28,13 +30,11 @@ class InnerContainerFragment : Fragment() {
 
         activity?.let {
             changeFragment(
-                it.supportFragmentManager,
+                /*it.supportFragmentManager*/childFragmentManager,
                 R.id.inner_fragment_frame_layout,
-                ProgramsFragment.newInstance(),
-                false
+                ProgramsFragment.newInstance()
             )
         }
     }
-
 
 }

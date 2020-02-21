@@ -1,6 +1,8 @@
 package com.liad.radiosavta.utils.extension
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
@@ -20,9 +22,16 @@ fun changeFragment(
         R.anim.abc_grow_fade_in_from_bottom,
         R.anim.abc_popup_exit
     )
-    fragmentTransaction.replace(containerId, fragment, fragment::class.java.simpleName).commit()
+    fragmentTransaction
+        .replace(containerId, fragment, fragment::class.java.simpleName)
+        .commit()
 }
 
+fun Activity.changeActivity(destination: Class<*>, closeCurrent: Boolean = false) {
+    val intent = Intent(this, destination)
+    startActivity(intent)
+    if (closeCurrent) finish()
+}
 
 fun toast(context: Context, message: String, duration: Int = Toast.LENGTH_LONG) {
     Toast.makeText(context, message, duration).show()

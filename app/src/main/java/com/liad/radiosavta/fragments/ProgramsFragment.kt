@@ -28,7 +28,7 @@ class ProgramsFragment : Fragment() {
     }
 
     private val programAdapter =
-        ProgramsAdapter().apply {  listener = createAdapterListener() }
+        ProgramsAdapter().apply { listener = createAdapterListener() }
 
     private val programsViewModel: ProgramsViewModel by inject()
 
@@ -78,17 +78,21 @@ class ProgramsFragment : Fragment() {
     private fun createAdapterListener(): ProgramsAdapter.IProgramListener? {
         return object : ProgramsAdapter.IProgramListener {
             override fun onClick(program: Program) {
-                activity?.let {
-                    val bundle = Bundle()
-                    bundle.putInt(Constants.PROGRAM_ID, program.id ?: 0)
-                    changeFragment(
-                        it.supportFragmentManager,
-                        R.id.inner_fragment_frame_layout,
-                        ProgramDetailsFragment.newInstance(bundle),
-                        true
-                    )
-                }
+                openProgramDetailFragment(program.id)
             }
+        }
+    }
+
+    fun openProgramDetailFragment(programId: Int?) {
+        activity?.let {
+            val bundle = Bundle()
+            bundle.putInt(Constants.PROGRAM_ID, programId ?: 0)
+            changeFragment(
+                /*it.supportFragmentManager*/parentFragment!!.childFragmentManager,
+                R.id.inner_fragment_frame_layout,
+                ProgramDetailsFragment.newInstance(bundle),
+                true
+            )
         }
     }
 }

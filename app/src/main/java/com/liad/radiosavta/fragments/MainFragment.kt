@@ -1,6 +1,5 @@
 package com.liad.radiosavta.fragments
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,10 +11,10 @@ import androidx.recyclerview.widget.RecyclerView
 import co.climacell.statefulLiveData.core.StatefulData
 import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.ProgramsAdapter
+import com.liad.radiosavta.models.Program
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
 import org.koin.android.ext.android.inject
-
 
 class MainFragment : Fragment() {
 
@@ -25,7 +24,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private val programsAdapter = ProgramsAdapter()
+    private val programsAdapter = ProgramsAdapter().apply { listener = getAdapterListener() }
     private val programsViewModel: ProgramsViewModel by inject()
 
     override fun onCreateView(
@@ -58,8 +57,10 @@ class MainFragment : Fragment() {
                     programsAdapter.setPrograms(it.data.shuffled())
                 }
                 is StatefulData.Loading -> {
+                    showProgress()
                 }
                 is StatefulData.Error -> {
+                    showProgress(false)
                 }
             }
         })
@@ -67,13 +68,27 @@ class MainFragment : Fragment() {
         programsViewModel.getCurrentPlayingSongTitle().observe(viewLifecycleOwner, Observer {
             when (it) {
                 is StatefulData.Success -> {
-                    main_fragment_propress_bar.visibility = View.GONE
+                    showProgress(false)
                     main_fragment_song_name.text = it.data
                 }
                 is StatefulData.Loading -> {
-                    main_fragment_propress_bar.visibility = View.VISIBLE
+                    showProgress()
+                }
+                is StatefulData.Error -> {
+                    showProgress(false)
                 }
             }
         })
     }
+
+    private fun showProgress(show : Boolean = true){
+        main_fragment_progress_bar.visibility = if(show) View.VISIBLE else View.GONE
+    }
+
+    private fun getAdapterListener(): ProgramsAdapter.IProgramListener? =
+        object : ProgramsAdapter.IProgramListener {
+            override fun onClick(program: Program) {
+                // todo Liad - handle program click (navigate to second tab and move to child fragment - ProgramDetailsFragment)
+            }
+        }
 }
