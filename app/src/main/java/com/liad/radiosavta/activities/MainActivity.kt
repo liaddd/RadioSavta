@@ -7,6 +7,7 @@ import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
@@ -43,6 +44,14 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         0,
         R.drawable.ic_people_green_24dp,
         R.drawable.ic_settings_green_24dp
+    )
+
+    private val selectedTabText = listOf(
+        "Home",
+        "Programs",
+        "",
+        "Broadcasters",
+        "Settings"
     )
 
 
@@ -83,7 +92,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
         Handler().postDelayed({
             mediaPlayer = PlayAudioManager.initMediaPlayer()
-        } , 100)
+        }, 100)
         main_activity_play_image_view.setOnClickListener(this)
 
         viewPager = main_activity_view_pager.apply {
@@ -135,21 +144,31 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     // todo Liad - refactor function
     private fun setupTabs(tab: TabLayout.Tab, position: Int) {
         customTabView = layoutInflater.inflate(R.layout.custom_tab_item, null)
-        customTabView.findViewById<ImageView>(R.id.custom_tab_item_image_view)
-            .setImageResource(if (position == 0) selectedTabIcons[position] else unselectedTabsIcons[position])
+        val tabIcon = customTabView.findViewById<ImageView>(R.id.custom_tab_item_image_view)
+        val tabText = customTabView.findViewById<TextView>(R.id.custom_tab_item_text_view)
+
+        if (position == 0) {
+            tabText.setTextColor(resources.getColor(R.color.green, null))
+            tabIcon.setImageResource(selectedTabIcons[position])
+        } else tabIcon.setImageResource(unselectedTabsIcons[position])
+
+        tabText.text = selectedTabText[position]
         tab.customView = customTabView
     }
 
     private fun handleTabState(tab: TabLayout.Tab) {
         customTabView = layoutInflater.inflate(R.layout.custom_tab_item, null)
+        val tabText = customTabView.findViewById<TextView>(R.id.custom_tab_item_text_view)
+        val tabIcon = customTabView.findViewById<ImageView>(R.id.custom_tab_item_image_view)
         tab.customView = null
         if (tab.isSelected) {
-            customTabView.findViewById<ImageView>(R.id.custom_tab_item_image_view)
-                .setImageResource(selectedTabIcons[tab.position])
+            tabIcon.setImageResource(selectedTabIcons[tab.position])
+            tabText.setTextColor(resources.getColor(R.color.green, null))
         } else {
-            customTabView.findViewById<ImageView>(R.id.custom_tab_item_image_view)
-                .setImageResource(unselectedTabsIcons[tab.position])
+            tabIcon.setImageResource(unselectedTabsIcons[tab.position])
+            tabText.setTextColor(resources.getColor(android.R.color.white, null))
         }
+        tabText.text = selectedTabText[tab.position]
         tab.customView = customTabView
     }
 

@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="@dimen/size_8dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingTop="@dimen/size_4dp"
+        android:paddingBottom="@dimen/size_4dp">
 
     <ImageView
             android:id="@+id/custom_tab_item_image_view"
             android:layout_width="@dimen/size_32dp"
             android:layout_height="@dimen/size_32dp"
             android:adjustViewBounds="true"
+            android:layout_gravity="center"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_home_green_24dp" />
+
+    <TextView
+            android:id="@+id/custom_tab_item_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_home_green_24dp"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_12sp" />
 </LinearLayout>
