@@ -67,7 +67,21 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     override fun onTabReselected(tab: TabLayout.Tab?) {
         tab?.let {
             if (it.position == 1) {
-                handleInnerFragmentBackStack()
+                popAllChildStack()
+            }
+        }
+    }
+
+    private fun popAllChildStack() {
+        for (fragment in supportFragmentManager.fragments) {
+            if (fragment.isVisible) {
+                val childFragManager = fragment.childFragmentManager
+                if (childFragManager.backStackEntryCount > 0) {
+                    for (i in childFragManager.backStackEntryCount downTo 0) {
+                        childFragManager.popBackStack()
+                    }
+                    childFragManager.popBackStack()
+                }
             }
         }
     }

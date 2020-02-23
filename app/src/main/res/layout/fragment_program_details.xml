@@ -11,8 +11,9 @@
             android:id="@+id/program_details_fragment_image_view_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/size_32dp"
+            android:layout_marginTop="32dp"
             app:cardCornerRadius="5dp"
             app:cardElevation="2dp"
             app:cardUseCompatPadding="true">
@@ -22,8 +23,7 @@
                 android:layout_width="@dimen/size_150dp"
                 android:layout_height="@dimen/size_150dp"
                 android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/radiosavta" />
+                android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>
 
@@ -91,8 +91,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/program_details_fragment_presented_recycler_view"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:scrollbars="none"
             android:layout_height="@dimen/size_150dp"
+            android:layout_centerHorizontal="true"
+            tools:listitem="@layout/presented_by_list_item"
             android:layout_below="@+id/program_details_fragment_presented_by_text_view"
             android:orientation="horizontal" />
 
