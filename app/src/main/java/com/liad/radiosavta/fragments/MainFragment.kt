@@ -26,7 +26,6 @@ class MainFragment : Fragment() {
 
     private val programsAdapter = ProgramsAdapter().apply { listener = getAdapterListener() }
     private val programsViewModel: ProgramsViewModel by inject()
-    var listener : IOnProgramClickedListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,20 +81,14 @@ class MainFragment : Fragment() {
         })
     }
 
-    private fun showProgress(show: Boolean = true) {
-        main_fragment_progress_bar.visibility = if (show) View.VISIBLE else View.GONE
+    private fun showProgress(show : Boolean = true){
+        main_fragment_progress_bar.visibility = if(show) View.VISIBLE else View.GONE
     }
 
     private fun getAdapterListener(): ProgramsAdapter.IProgramListener? =
         object : ProgramsAdapter.IProgramListener {
             override fun onClick(program: Program) {
                 // todo Liad - handle program click (navigate to second tab and move to child fragment - ProgramDetailsFragment)
-                listener?.onProgramClicked(program)
             }
         }
-
-
-    interface IOnProgramClickedListener{
-        fun onProgramClicked(program: Program)
-    }
 }

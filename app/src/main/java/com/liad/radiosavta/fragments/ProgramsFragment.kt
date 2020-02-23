@@ -14,7 +14,6 @@ import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.ProgramsAdapter
 import com.liad.radiosavta.models.Program
 import com.liad.radiosavta.utils.Constants
-import com.liad.radiosavta.utils.Constants.PROGRAM_ID
 import com.liad.radiosavta.utils.extension.changeFragment
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.fragment_programs.*
@@ -85,18 +84,13 @@ class ProgramsFragment : Fragment() {
     }
 
     fun openProgramDetailFragment(programId: Int?) {
-        val programDetailsFragment = ProgramDetailsFragment.newInstance()
-        if (programDetailsFragment.programId == programId) {
-            return
-        }
         activity?.let {
             val bundle = Bundle()
-            bundle.putInt(PROGRAM_ID, programId ?: 0)
-            programDetailsFragment.arguments = bundle
+            bundle.putInt(Constants.PROGRAM_ID, programId ?: 0)
             changeFragment(
                 /*it.supportFragmentManager*/parentFragment!!.childFragmentManager,
                 R.id.inner_fragment_frame_layout,
-                programDetailsFragment,
+                ProgramDetailsFragment.newInstance(bundle),
                 true
             )
         }
