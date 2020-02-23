@@ -37,13 +37,12 @@ class ProgramsAdapter : RecyclerView.Adapter<ProgramsAdapter.ViewHolder>() {
         val program = programsList[position]
 
         holder.nameTV.text = program.nameEn
-        //holder.descriptionTV.text = program.description
 
         val firstUser = program.users?.let { it[0] }
         Glide.with(holder.itemView.context)
             .load(program.getCover() ?: firstUser?.getProfileImg())
             .diskCacheStrategy(DiskCacheStrategy.AUTOMATIC)
-            .centerCrop()
+            .fitCenter()
             .placeholder(
                 ResourcesCompat.getDrawable(
                     holder.itemView.resources,
@@ -65,7 +64,6 @@ class ProgramsAdapter : RecyclerView.Adapter<ProgramsAdapter.ViewHolder>() {
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTV: TextView = itemView.findViewById(R.id.program_list_item_name_text_view)
-        //val descriptionTV: TextView = itemView.findViewById(R.id.program_list_item_description_text_view)
         val coverImage: ImageView = itemView.findViewById(R.id.program_list_item_cover_image_view)
     }
 

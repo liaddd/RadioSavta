@@ -15,9 +15,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.FragmentPagerAdapter
 import com.liad.radiosavta.utils.PlayAudioManager
-import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.OnClickListener {
 
@@ -28,7 +26,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     private var mediaPlayer: MediaPlayer? = null
 
-    private val programsViewModel: ProgramsViewModel by inject()
 
     private val unselectedTabsIcons = listOf(
         R.drawable.ic_home_white_24dp,
@@ -101,6 +98,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
         // disable view pager scrolling
         viewPager.isUserInputEnabled = false
+
+        viewPager.offscreenPageLimit = 2
 
         initTabLayout()
 
@@ -201,15 +200,16 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     override fun onBackPressed() {
         if (handleInnerFragmentBackStack()) return
         if (viewPager.currentItem > 0) {
-            tabLayout.getTabAt(0)?.select()
+            goToMainPage()
             return
         }
         super.onBackPressed()
     }
 
+    private fun goToMainPage() = tabLayout.getTabAt(0)?.select()
+
     override fun onDestroy() {
         super.onDestroy()
         mediaPlayer?.stop()
     }
-
 }

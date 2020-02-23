@@ -34,10 +34,12 @@ class ProgramDetailsFragment : Fragment() {
 
     private lateinit var presentedByRV: RecyclerView
     private lateinit var recordedShowRV: RecyclerView
-
     private val programsViewModel: ProgramsViewModel by inject()
+
     private val presentedByAdapter = PresentedByAdapter()
     private val recordedShowsAdapter = RecordedShowsAdapter()
+
+    var programId: Int? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -53,8 +55,24 @@ class ProgramDetailsFragment : Fragment() {
         setObservers()
     }
 
+
+    private fun initViews() {
+        activity?.let {
+            presentedByRV = program_details_fragment_presented_recycler_view.apply {
+                adapter = presentedByAdapter
+                layoutManager = LinearLayoutManager(it, RecyclerView.HORIZONTAL, false)
+            }
+
+            recordedShowRV = program_details_fragment_recorded_shows_recycler_view.apply {
+                adapter = recordedShowsAdapter
+                layoutManager = LinearLayoutManager(it, RecyclerView.VERTICAL, false)
+            }
+        }
+    }
+
     private fun setObservers() {
-        val programId = arguments?.getInt(Constants.PROGRAM_ID)
+        programId = arguments?.getInt(Constants.PROGRAM_ID)
+
         programId?.let { id ->
             programsViewModel.getProgramsById(id).observe(viewLifecycleOwner, Observer {
                 when (it) {
@@ -92,9 +110,9 @@ class ProgramDetailsFragment : Fragment() {
             convertIntToDay(program.programTimes?.dayOfWeek ?: 1)
 
         program.recorded_shows?.let {
-            if (it.isNullOrEmpty()){
+            if (it.isNullOrEmpty()) {
                 program_details_fragment_no_recorded_show_text.visibility = View.VISIBLE
-            }else{
+            } else {
                 program_details_fragment_no_recorded_show_text.visibility = View.GONE
                 recordedShowRV.visibility = View.VISIBLE
                 recordedShowsAdapter.setRecordedShow(it)
@@ -107,20 +125,6 @@ class ProgramDetailsFragment : Fragment() {
         program_details_fragment_progress_bar.visibility = if (show) View.VISIBLE else View.GONE
     }
 
-
-    private fun initViews() {
-        activity?.let {
-            presentedByRV = program_details_fragment_presented_recycler_view.apply {
-                adapter = presentedByAdapter
-                layoutManager = LinearLayoutManager(it, RecyclerView.HORIZONTAL, false)
-            }
-
-            recordedShowRV = program_details_fragment_recorded_shows_recycler_view.apply {
-                adapter = recordedShowsAdapter
-                layoutManager = LinearLayoutManager(it, RecyclerView.VERTICAL, false)
-            }
-        }
-    }
 
 
 }
