@@ -2,6 +2,7 @@ package com.liad.radiosavta.fragments
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,11 +20,12 @@ class InnerContainerFragment : Fragment() {
         }
     }
 
+    private val programsFragment: ProgramsFragment = ProgramsFragment.newInstance()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_inner_container, container, false)
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,8 +34,20 @@ class InnerContainerFragment : Fragment() {
             changeFragment(
                 /*it.supportFragmentManager*/childFragmentManager,
                 R.id.inner_fragment_frame_layout,
-                ProgramsFragment.newInstance()
+                programsFragment
             )
+        }
+    }
+
+    fun openProgramDetails(programId: Int) {
+        if (!isAdded) return
+        Log.d("Liad", "$programId")
+        for (fragment in childFragmentManager.fragments) {
+            // Preventing from opening the same program details twice
+            if ((fragment as? ProgramDetailsFragment)?.programId != programId) {
+                programsFragment.openProgramDetailFragment(programId)
+                return
+            }
         }
     }
 

@@ -8,5 +8,4 @@ object Constants {
     const val PLAY_URL = "http://radiosavta.cdnwz.net:9005/savta_live"
     const val PROGRAM_ID = "program_id"
     const val BASE_URL = "https://radiosavta-api.herokuapp.com/"
-    const val NUM_PAGE = 5
 }
