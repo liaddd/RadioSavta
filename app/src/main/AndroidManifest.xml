@@ -30,6 +30,8 @@
 
             </intent-filter>
         </activity>
+        <receiver android:name=".receivers.AudioPlayerBroadcastReceiver"/>
+        <service android:name=".services.PlayMusicService" />
     </application>
 
 </manifest>

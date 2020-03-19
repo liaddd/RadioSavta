@@ -28,11 +28,10 @@ class PlayAudioManager {
             mediaPlayer?.start()
         }
 
-        private fun closeMediaPlayer() {
+        fun closeMediaPlayer() {
             if (mediaPlayer != null) {
                 try {
                     mediaPlayer?.reset()
-                    mediaPlayer?.release()
                     mediaPlayer = null
                 } catch (e: Exception) {
                     e.printStackTrace()

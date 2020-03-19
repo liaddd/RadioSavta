@@ -33,7 +33,7 @@ fun Activity.changeActivity(destination: Class<*>, closeCurrent: Boolean = false
     if (closeCurrent) finish()
 }
 
-fun toast(context: Context, message: String, duration: Int = Toast.LENGTH_LONG) {
+fun toast(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(context, message, duration).show()
 }
 

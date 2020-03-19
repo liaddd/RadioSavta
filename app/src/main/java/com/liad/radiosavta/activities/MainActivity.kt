@@ -10,12 +10,16 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
+import co.climacell.statefulLiveData.core.StatefulData
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.FragmentPagerAdapter
+import com.liad.radiosavta.utils.NotificationManager
 import com.liad.radiosavta.utils.PlayAudioManager
+import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.OnClickListener {
 
@@ -25,7 +29,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
 
     private var mediaPlayer: MediaPlayer? = null
-
+    private val programsViewModel: ProgramsViewModel by inject()
 
     private val unselectedTabsIcons = listOf(
         R.drawable.ic_home_white_24dp,
@@ -72,6 +76,10 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         }
     }
 
+    override fun onTabUnselected(tab: TabLayout.Tab?) {
+        tab?.let { handleTabState(it) }
+    }
+
     private fun popAllChildStack() {
         for (fragment in supportFragmentManager.fragments) {
             if (fragment.isVisible) {
@@ -84,10 +92,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
                 }
             }
         }
-    }
-
-    override fun onTabUnselected(tab: TabLayout.Tab?) {
-        tab?.let { handleTabState(it) }
     }
 
     override fun onClick(v: View?) {
@@ -141,7 +145,11 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
             if (it.isPlaying) {
                 it.pause()
             } else {
-                it.start()
+                PlayAudioManager.playAudio()
+                val songTitle =
+                    (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
+                        ?: "Blat O_o"
+                NotificationManager(this).showNotification(songTitle)
             }
             handleMediaPlayerState()
         }

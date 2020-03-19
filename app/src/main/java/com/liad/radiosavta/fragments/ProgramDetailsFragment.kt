@@ -5,6 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
+import androidx.cardview.widget.CardView
+import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +19,7 @@ import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.PresentedByAdapter
 import com.liad.radiosavta.adapters.RecordedShowsAdapter
 import com.liad.radiosavta.models.Program
+import com.liad.radiosavta.models.User
 import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.utils.extension.convertIntToDay
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
@@ -36,7 +41,8 @@ class ProgramDetailsFragment : Fragment() {
     private lateinit var recordedShowRV: RecyclerView
     private val programsViewModel: ProgramsViewModel by inject()
 
-    private val presentedByAdapter = PresentedByAdapter()
+    private val presentedByAdapter =
+        PresentedByAdapter().apply { listener = getIUserClickedListener() }
     private val recordedShowsAdapter = RecordedShowsAdapter()
 
     var programId: Int? = null
@@ -121,11 +127,16 @@ class ProgramDetailsFragment : Fragment() {
         }
     }
 
+    private fun getIUserClickedListener(): PresentedByAdapter.IUserClickedListener =
+        object : PresentedByAdapter.IUserClickedListener {
+            override fun onClick(user: User, view: View) {
+                // todo Liad - add flip animation to users click's
+            }
+        }
+
     private fun showProgress(show: Boolean = true) {
         program_details_fragment_progress_bar.visibility = if (show) View.VISIBLE else View.GONE
     }
-
-
 
 }
 
