@@ -19,7 +19,7 @@ data class User(
     val name: String? = null,
 
     val location: String? = null
-){
+) {
 
     fun getProfileImg(): String {
         return BASE_IMAGE_URL + profileImage

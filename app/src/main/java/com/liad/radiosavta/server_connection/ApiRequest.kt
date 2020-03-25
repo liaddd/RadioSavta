@@ -19,5 +19,5 @@ interface ApiRequest {
     fun getCurrentPlayingSongTitle(): StatefulLiveData<StreamTitle>
 
     @GET("/users")
-    fun getUsers() : StatefulLiveData<List<User>>
+    fun getUsers(): StatefulLiveData<List<User>>
 }

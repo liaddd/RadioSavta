@@ -43,11 +43,11 @@ class RecordedShowsAdapter : RecyclerView.Adapter<RecordedShowsAdapter.ViewHolde
 
         holder.imageView.setOnClickListener {
             val uri = Uri.parse(show.url)
-            startActivity(holder.itemView.context , Intent(Intent.ACTION_VIEW , uri) , null)
+            startActivity(holder.itemView.context, Intent(Intent.ACTION_VIEW, uri), null)
         }
     }
 
-    fun setRecordedShow(newShows: List<RecordedShow>){
+    fun setRecordedShow(newShows: List<RecordedShow>) {
         recordedShowsList.clearAndAddAll(newShows)
         notifyDataSetChanged()
     }

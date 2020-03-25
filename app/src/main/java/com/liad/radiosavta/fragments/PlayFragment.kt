@@ -10,7 +10,6 @@ import com.liad.radiosavta.R
 
 class PlayFragment : Fragment() {
 
-
     companion object {
         fun newInstance(): PlayFragment {
             return PlayFragment()
@@ -21,6 +20,5 @@ class PlayFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_play, container, false)
-
 
 }

@@ -10,10 +10,14 @@ import com.liad.radiosavta.models.ProgramTimes
 import com.liad.radiosavta.models.User
 
 @TypeConverters(Converters::class)
-@Database(entities = [Program::class, ProgramTimes::class, User::class], version = 1 , exportSchema = false)
+@Database(
+    entities = [Program::class, ProgramTimes::class, User::class],
+    version = 1,
+    exportSchema = false
+)
 abstract class RadioSavtaDatabase : RoomDatabase() {
 
-    abstract fun dao() : RadioSavtaDao
+    abstract fun dao(): RadioSavtaDao
 
     companion object {
         @Volatile
@@ -26,10 +30,10 @@ abstract class RadioSavtaDatabase : RoomDatabase() {
             }
             synchronized(this) {
                 return Room.databaseBuilder(
-                    context.applicationContext,
-                    RadioSavtaDatabase::class.java,
-                    "radio_savta.db"
-                ).fallbackToDestructiveMigration()
+                        context.applicationContext,
+                        RadioSavtaDatabase::class.java,
+                        "radio_savta.db"
+                    ).fallbackToDestructiveMigration()
                     .build()
             }
         }

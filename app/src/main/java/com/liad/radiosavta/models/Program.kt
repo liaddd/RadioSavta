@@ -29,7 +29,7 @@ data class Program(
 
     val users: List<User>? = null,
 
-    val recorded_shows : List<RecordedShow>? = null
+    val recorded_shows: List<RecordedShow>? = null
 
 ) {
 

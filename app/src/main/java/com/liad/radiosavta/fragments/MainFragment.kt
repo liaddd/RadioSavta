@@ -26,7 +26,7 @@ class MainFragment : Fragment() {
 
     private val programsAdapter = ProgramsAdapter().apply { listener = getAdapterListener() }
     private val programsViewModel: ProgramsViewModel by inject()
-    var listener : IOnProgramClickedListener? = null
+    var listener: IOnProgramClickedListener? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -95,7 +95,7 @@ class MainFragment : Fragment() {
         }
 
 
-    interface IOnProgramClickedListener{
+    interface IOnProgramClickedListener {
         fun onProgramClicked(program: Program)
     }
 }
