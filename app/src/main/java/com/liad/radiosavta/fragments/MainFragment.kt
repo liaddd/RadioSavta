@@ -19,9 +19,7 @@ import org.koin.android.ext.android.inject
 class MainFragment : Fragment() {
 
     companion object {
-        fun newInstance(): MainFragment {
-            return MainFragment()
-        }
+        fun newInstance(): MainFragment = MainFragment()
     }
 
     private val programsAdapter = ProgramsAdapter().apply { listener = getAdapterListener() }
@@ -41,7 +39,6 @@ class MainFragment : Fragment() {
         initViews()
         setObservers()
     }
-
 
     private fun initViews() {
         main_fragment_recycler_view.apply {

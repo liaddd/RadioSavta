@@ -1,12 +1,15 @@
 package com.liad.radiosavta.utils
 
+import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.media.session.MediaSession
 import android.os.Build
+import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.liad.radiosavta.R
@@ -55,15 +58,6 @@ class NotificationManager(val context: Context) {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        // custom notification view
-        /*val collapsedView = RemoteViews(context.packageName, R.layout.media_notification_collapsed)
-        collapsedView.setTextViewText(R.id.notification_title , title)
-
-        val expendedView = RemoteViews(context.packageName, R.layout.media_notification_expended)
-        expendedView.setTextViewText(R.id.notification_title , title)
-        expendedView.setOnClickPendingIntent(R.id.notification_play_button , playActionIntent)*/
-
-
         val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.savta_rounded_logo)
         val notification = NotificationCompat.Builder(context, "1")
             .setSmallIcon(R.drawable.savta_rounded_logo)
@@ -82,8 +76,8 @@ class NotificationManager(val context: Context) {
                 .setShowActionsInCompactView()
             )
             .setContentIntent(pendingIntent)
-            .setSound(null)
-            .setVibrate(null)
+            .setDefaults(Notification.DEFAULT_LIGHTS or Notification.DEFAULT_SOUND)
+            .setVibrate(longArrayOf(0L))
             .setChannelId(NOTIFICATION_CHANNEL_ID)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()

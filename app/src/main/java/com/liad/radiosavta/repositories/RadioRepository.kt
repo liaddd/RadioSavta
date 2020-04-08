@@ -115,14 +115,14 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
         val mutableSongTitle = MutableStatefulLiveData<String>()
         mutableSongTitle.putLoading()
 
-        getCurrentPlayingSongFromApi().observeOnce(Observer { songTitle ->
+        getCurrentPlayingSongFromApi().observeForever { songTitle ->
             if (songTitle is StatefulData.Success) {
                 Log.d("Liad", songTitle.data.toString())
                 mutableSongTitle.putData(songTitle.data.StreamTitle)
             } else if (songTitle is StatefulData.Error) {
                 Log.d("Liad", songTitle.throwable.localizedMessage)
             }
-        })
+        }
 
         return mutableSongTitle
     }

@@ -1,5 +1,6 @@
 package com.liad.radiosavta.activities
 
+import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Handler
@@ -15,6 +16,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.FragmentPagerAdapter
+import com.liad.radiosavta.services.PlayMusicService
 import com.liad.radiosavta.utils.NotificationManager
 import com.liad.radiosavta.utils.PlayAudioManager
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
@@ -54,7 +56,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         "Broadcasters",
         "Settings"
     )
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,15 +142,16 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     }
 
     private fun onPlayPauseClicked() {
+        val songTitle =
+            (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
+                ?: "Blat O_o"
         mediaPlayer?.let {
             if (it.isPlaying) {
                 it.pause()
+                NotificationManager(this).showNotification(songTitle)
             } else {
                 PlayAudioManager.playAudio()
-                val songTitle =
-                    (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
-                        ?: "Blat O_o"
-                NotificationManager(this).showNotification(songTitle)
+                NotificationManager(this).showNotification(songTitle, true)
             }
             handleMediaPlayerState()
         }
@@ -230,8 +232,12 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     private fun goToMainPage() = tabLayout.getTabAt(0)?.select()
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mediaPlayer?.stop()
+    private fun startService() {
+        mediaPlayer?.let {
+            if (it.isPlaying) {
+                val intent = Intent(this, PlayMusicService::class.java)
+                startService(intent)
+            }
+        }
     }
 }
