@@ -11,25 +11,9 @@ import com.liad.radiosavta.R
 
 class SettingsFragment : Fragment() {
 
-    companion object {
-        fun newInstance(): SettingsFragment {
-            return SettingsFragment()
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_settings, container, false)
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        initViews()
-    }
-
-    private fun initViews() {
-        //TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
 
 }

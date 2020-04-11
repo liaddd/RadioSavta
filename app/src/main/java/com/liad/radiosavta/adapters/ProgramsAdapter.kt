@@ -33,7 +33,6 @@ class ProgramsAdapter : RecyclerView.Adapter<ProgramsAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val program = programsList[position]
 
         holder.nameTV.text = program.nameEn

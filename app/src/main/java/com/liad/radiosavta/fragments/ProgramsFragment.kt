@@ -23,9 +23,7 @@ import org.koin.android.ext.android.inject
 class ProgramsFragment : Fragment() {
 
     companion object {
-        fun newInstance(): ProgramsFragment {
-            return ProgramsFragment()
-        }
+        fun newInstance(): ProgramsFragment = ProgramsFragment()
     }
 
     private val programAdapter =

@@ -20,9 +20,7 @@ import org.koin.android.ext.android.inject
 class UsersFragment : Fragment() {
 
     companion object {
-        fun newInstance(): UsersFragment {
-            return UsersFragment()
-        }
+        fun newInstance(): UsersFragment = UsersFragment()
     }
 
     override fun onCreateView(

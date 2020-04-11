@@ -11,9 +11,7 @@ import com.liad.radiosavta.R
 class PlayFragment : Fragment() {
 
     companion object {
-        fun newInstance(): PlayFragment {
-            return PlayFragment()
-        }
+        fun newInstance(): PlayFragment = PlayFragment()
     }
 
     override fun onCreateView(
