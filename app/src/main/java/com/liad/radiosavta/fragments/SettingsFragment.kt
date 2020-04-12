@@ -11,6 +11,10 @@ import com.liad.radiosavta.R
 
 class SettingsFragment : Fragment() {
 
+    companion object{
+        fun newInstance() : SettingsFragment = SettingsFragment()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

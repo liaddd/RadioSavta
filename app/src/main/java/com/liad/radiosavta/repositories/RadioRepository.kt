@@ -25,8 +25,6 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
     private val dao: RadioSavtaDao
 
     init {
-        Log.d("Liad", "initialized $this")
-
         dao = radioSavtaDatabase.dao()
         apiRequest = retrofit.create(ApiRequest::class.java)
 
@@ -42,12 +40,9 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
         programsMutableLiveData.putLoading()
 
         getProgramsFromDatabase().observeOnce(Observer { dbPrograms ->
-            Log.d("Liad", "getting Programs from Database")
             if (dbPrograms.isNullOrEmpty()) {
                 getProgramsFromApi().observeOnce(Observer { apiPrograms ->
-                    Log.d("Liad", "getting Programs from Api")
                     if (apiPrograms is StatefulData.Success) {
-                        Log.d("Liad", apiPrograms.data.toString())
                         programsMutableLiveData.putData(apiPrograms.data)
                         saveProgramsInDatabase(apiPrograms.data)
                     }
@@ -64,7 +59,6 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
     private fun saveProgramsInDatabase(data: List<Program>) {
         executor.submit {
             dao.insertPrograms(data)
-            Log.d("Liad", "programs inserted to Database successfully!")
         }
     }
 
@@ -80,9 +74,7 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
         programMutableStateful.putLoading()
 
         getProgramByIdFromDatabase(id).observeOnce(Observer { dbProgram ->
-            Log.d("Liad", "getting Program $id from Database")
             if (dbProgram == null || dbProgram.recorded_shows.isNullOrEmpty()) {
-                Log.d("Liad", "getting Program $id from Api")
                 getProgramByIdFromApi(id).observeOnce(Observer { apiProgram ->
                     if (apiProgram is StatefulData.Success) {
                         programMutableStateful.putData(apiProgram.data)
@@ -117,7 +109,7 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
 
         getCurrentPlayingSongFromApi().observeForever { songTitle ->
             if (songTitle is StatefulData.Success) {
-                Log.d("Liad", songTitle.data.toString())
+                Log.d("Liad" , songTitle.data.StreamTitle)
                 mutableSongTitle.putData(songTitle.data.StreamTitle)
             } else if (songTitle is StatefulData.Error) {
                 Log.d("Liad", songTitle.throwable.localizedMessage)
@@ -134,10 +126,8 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
         mutableUsersLiveData.putLoading()
 
         getUsersFromDatabase().observeOnce(Observer { dbUsers ->
-            Log.d("Liad", "fetching Users from Database")
             if (dbUsers.isNullOrEmpty()) {
                 getUsersFromApi().observeOnce(Observer { apiUsers ->
-                    Log.d("Liad", "fetching Users from Api")
                     if (apiUsers is StatefulData.Success) {
                         mutableUsersLiveData.putData(apiUsers.data)
                         saveUsersInDatabase(apiUsers.data)
@@ -156,7 +146,6 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
         executor.submit {
             try {
                 dao.insertUsers(users)
-                Log.d("Liad", "Users saved in Database Successfully")
             } catch (e: Exception) {
                 e.printStackTrace()
             }

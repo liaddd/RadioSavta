@@ -19,6 +19,7 @@ import com.liad.radiosavta.adapters.FragmentPagerAdapter
 import com.liad.radiosavta.services.PlayMusicService
 import com.liad.radiosavta.utils.NotificationManager
 import com.liad.radiosavta.utils.PlayAudioManager
+import com.liad.radiosavta.utils.extension.log
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject

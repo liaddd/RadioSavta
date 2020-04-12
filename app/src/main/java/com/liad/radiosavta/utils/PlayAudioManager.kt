@@ -1,6 +1,7 @@
 package com.liad.radiosavta.utils
 
 import android.media.MediaPlayer
+import android.util.Log
 
 class PlayAudioManager {
 
@@ -22,10 +23,11 @@ class PlayAudioManager {
         }
 
         fun playAudio() {
-            mediaPlayer?.setOnCompletionListener {
+            /*mediaPlayer?.setOnCompletionListener {
                 closeMediaPlayer()
-            }
+            }*/
             mediaPlayer?.start()
+            Log.d("Liad" , "playAudio occurred!")
         }
 
         fun closeMediaPlayer() {

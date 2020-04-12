@@ -3,6 +3,7 @@ package com.liad.radiosavta.utils.extension
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
@@ -35,6 +36,10 @@ fun Activity.changeActivity(destination: Class<*>, closeCurrent: Boolean = false
 
 fun toast(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT) {
     Toast.makeText(context, message, duration).show()
+}
+
+fun Context.log(message: String) {
+    Log.d("Liad", "${this::class.java.simpleName} $message")
 }
 
 fun <T> MutableList<T>.clearAndAddAll(newData: List<T>) {

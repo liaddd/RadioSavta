@@ -41,7 +41,6 @@ class InnerContainerFragment : Fragment() {
 
     fun openProgramDetails(programId: Int) {
         if (!isAdded) return
-        Log.d("Liad", "$programId")
         for (fragment in childFragmentManager.fragments) {
             // Preventing from opening the same program details twice
             if ((fragment as? ProgramDetailsFragment)?.programId != programId) {
