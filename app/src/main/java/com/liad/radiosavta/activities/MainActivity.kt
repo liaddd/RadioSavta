@@ -2,6 +2,7 @@ package com.liad.radiosavta.activities
 
 import android.content.Intent
 import android.media.MediaPlayer
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -16,10 +17,9 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.FragmentPagerAdapter
+import com.liad.radiosavta.managers.NotificationManager
+import com.liad.radiosavta.managers.PlayAudioManager
 import com.liad.radiosavta.services.PlayMusicService
-import com.liad.radiosavta.utils.NotificationManager
-import com.liad.radiosavta.utils.PlayAudioManager
-import com.liad.radiosavta.utils.extension.log
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
@@ -33,6 +33,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     private var mediaPlayer: MediaPlayer? = null
     private val programsViewModel: ProgramsViewModel by inject()
+
+    // TODO Liad - refactor all strange lists
 
     private val unselectedTabsIcons = listOf(
         R.drawable.ic_home_white_24dp,
@@ -145,13 +147,14 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private fun onPlayPauseClicked() {
         val songTitle =
             (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
-                ?: "Blat O_o"
+                ?: "O_o"
         mediaPlayer?.let {
             if (it.isPlaying) {
                 it.pause()
                 NotificationManager(this).showNotification(songTitle)
             } else {
-                PlayAudioManager.playAudio()
+                //PlayAudioManager.playAudio()
+                startService()
                 NotificationManager(this).showNotification(songTitle, true)
             }
             handleMediaPlayerState()
@@ -180,6 +183,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         tab.customView = customTabView
     }
 
+    // todo Liad - refactor function
     private fun handleTabState(tab: TabLayout.Tab) {
         customTabView = layoutInflater.inflate(R.layout.custom_tab_item, null)
         val tabText = customTabView.findViewById<TextView>(R.id.custom_tab_item_text_view)
@@ -235,10 +239,10 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     private fun startService() {
         mediaPlayer?.let {
-            if (it.isPlaying) {
-                val intent = Intent(this, PlayMusicService::class.java)
-                startService(intent)
-            }
+            val intent = Intent(this, PlayMusicService::class.java)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) startForegroundService(intent)
+            else startService(intent)
+
         }
     }
 }

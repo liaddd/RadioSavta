@@ -1,7 +1,8 @@
-package com.liad.radiosavta.utils
+package com.liad.radiosavta.managers
 
 import android.media.MediaPlayer
 import android.util.Log
+import com.liad.radiosavta.utils.Constants
 
 class PlayAudioManager {
 
@@ -13,7 +14,9 @@ class PlayAudioManager {
             if (mediaPlayer == null) {
                 mediaPlayer = MediaPlayer()
                 try {
-                    mediaPlayer?.setDataSource(Constants.PLAY_URL)
+                    mediaPlayer?.setDataSource(
+                        Constants.PLAY_URL
+                    )
                     mediaPlayer?.prepare()
                 } catch (e: IllegalArgumentException) {
                     e.printStackTrace()

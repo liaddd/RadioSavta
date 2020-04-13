@@ -1,4 +1,4 @@
-package com.liad.radiosavta.utils
+package com.liad.radiosavta.managers
 
 import android.app.Notification
 import android.app.NotificationChannel
@@ -7,9 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.media.session.MediaSession
 import android.os.Build
-import android.support.v4.media.session.MediaSessionCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.liad.radiosavta.R

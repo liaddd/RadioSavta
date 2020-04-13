@@ -2,22 +2,28 @@ package com.liad.radiosavta.services
 
 import android.app.Service
 import android.content.Intent
-import android.media.MediaPlayer
-import android.media.session.PlaybackState.ACTION_PLAY
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import com.liad.radiosavta.utils.PlayAudioManager
-import com.liad.radiosavta.utils.extension.log
+import com.liad.radiosavta.managers.PlayAudioManager
 
-class PlayMusicService : Service(), MediaPlayer.OnPreparedListener {
 
-    private var mediaPlayer : MediaPlayer? = null
+// TODO Liad - refactor
+class PlayMusicService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
+
+    override fun onCreate() {
+        super.onCreate()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.i("Liad", "inside onCreate if statement")
+        }
+    }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         PlayAudioManager.initMediaPlayer()
         Log.d("Liad", "onStartCommand")
+
         PlayAudioManager.mediaPlayer?.let {
             if (it.isPlaying) {
                 PlayAudioManager.closeMediaPlayer()
@@ -28,13 +34,13 @@ class PlayMusicService : Service(), MediaPlayer.OnPreparedListener {
         return START_STICKY
     }
 
+    // TODO Liad - refactor and fix (service destroyed automatically after few seconds)
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayer?.release()
-    }
-
-    override fun onPrepared(mp: MediaPlayer?) {
-
+        Log.e("Liad", "Service Destroyed!")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            stopForeground(true)
+        }
     }
 
 }
