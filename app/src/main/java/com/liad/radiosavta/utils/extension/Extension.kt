@@ -1,5 +1,6 @@
 package com.liad.radiosavta.utils.extension
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -10,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.liad.radiosavta.R
 
+@SuppressLint("PrivateResource")
 fun changeFragment(
     fragmentManager: FragmentManager, @IdRes containerId: Int,
     fragment: Fragment,
