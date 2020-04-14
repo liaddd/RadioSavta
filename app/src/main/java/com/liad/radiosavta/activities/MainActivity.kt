@@ -2,7 +2,6 @@ package com.liad.radiosavta.activities
 
 import android.content.Intent
 import android.media.MediaPlayer
-import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -11,15 +10,16 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import co.climacell.statefulLiveData.core.StatefulData
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.FragmentPagerAdapter
-import com.liad.radiosavta.managers.NotificationManager
 import com.liad.radiosavta.managers.PlayAudioManager
 import com.liad.radiosavta.services.PlayMusicService
+import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
@@ -145,19 +145,15 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     }
 
     private fun onPlayPauseClicked() {
-        val songTitle =
-            (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
-                ?: "O_o"
+        val currentSongName = (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
         mediaPlayer?.let {
             if (it.isPlaying) {
                 it.pause()
-                NotificationManager(this).showNotification(songTitle)
+                main_activity_play_image_view.setImageResource(R.drawable.play_button_background)
             } else {
-                //PlayAudioManager.playAudio()
-                startService()
-                NotificationManager(this).showNotification(songTitle, true)
+                main_activity_play_image_view.setImageResource(R.drawable.pause_button_background)
+                startService(currentSongName)
             }
-            handleMediaPlayerState()
         }
     }
 
@@ -200,18 +196,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         tab.customView = customTabView
     }
 
-    private fun handleMediaPlayerState() {
-        if (mediaPlayer == null) {
-            PlayAudioManager.playAudio()
-        }
-        mediaPlayer?.let {
-            main_activity_play_image_view.setImageResource(
-                if (it.isPlaying) R.drawable.pause_button_background
-                else R.drawable.play_button_background
-            )
-        }
-    }
-
     private fun handleInnerFragmentBackStack(): Boolean {
         var isPopped = false
         for (fragment in supportFragmentManager.fragments) {
@@ -237,12 +221,11 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     private fun goToMainPage() = tabLayout.getTabAt(0)?.select()
 
-    private fun startService() {
+    private fun startService(currentSong: String? = "") {
         mediaPlayer?.let {
             val intent = Intent(this, PlayMusicService::class.java)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) startForegroundService(intent)
-            else startService(intent)
-
+            intent.putExtra(Constants.SONG_NAME, currentSong)
+            ContextCompat.startForegroundService(this , intent)
         }
     }
 }

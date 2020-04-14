@@ -26,14 +26,12 @@ class PlayAudioManager {
         }
 
         fun playAudio() {
-            /*mediaPlayer?.setOnCompletionListener {
-                closeMediaPlayer()
-            }*/
+            Log.i("Liad" , "Playing audio!")
             mediaPlayer?.start()
-            Log.d("Liad" , "playAudio occurred!")
         }
 
-        fun closeMediaPlayer() {
+        fun pauseAudio() {
+            Log.e("Liad" , "Pausing audio!")
             if (mediaPlayer != null) {
                 try {
                     mediaPlayer?.reset()
