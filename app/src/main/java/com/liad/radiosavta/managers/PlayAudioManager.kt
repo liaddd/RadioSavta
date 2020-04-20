@@ -14,9 +14,7 @@ class PlayAudioManager {
             if (mediaPlayer == null) {
                 mediaPlayer = MediaPlayer()
                 try {
-                    mediaPlayer?.setDataSource(
-                        Constants.PLAY_URL
-                    )
+                    mediaPlayer?.setDataSource(Constants.PLAY_URL)
                     mediaPlayer?.prepare()
                 } catch (e: IllegalArgumentException) {
                     e.printStackTrace()
@@ -26,12 +24,12 @@ class PlayAudioManager {
         }
 
         fun playAudio() {
-            Log.i("Liad" , "Playing audio!")
+            Log.i("Liad", "Playing audio!")
             mediaPlayer?.start()
         }
 
         fun pauseAudio() {
-            Log.e("Liad" , "Pausing audio!")
+            Log.e("Liad", "Pausing audio!")
             if (mediaPlayer != null) {
                 try {
                     mediaPlayer?.reset()

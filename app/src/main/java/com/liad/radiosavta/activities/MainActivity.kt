@@ -3,7 +3,6 @@ package com.liad.radiosavta.activities
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageView
@@ -110,9 +109,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private fun initViews() {
         fragmentPagerAdapter = FragmentPagerAdapter(this)
 
-        Handler().postDelayed({
-            mediaPlayer = PlayAudioManager.initMediaPlayer()
-        }, 100)
+        mediaPlayer = PlayAudioManager.initMediaPlayer()
         main_activity_play_image_view.setOnClickListener(this)
 
         viewPager = main_activity_view_pager.apply {
@@ -146,15 +143,12 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     }
 
     private fun onPlayPauseClicked() {
-        val currentSongName = (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
+        val currentSongName =
+            (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
         mediaPlayer?.let {
-            if (it.isPlaying) {
-                main_activity_play_image_view.setImageResource(R.drawable.play_button_background)
-                startService(currentSongName)
-            } else {
-                main_activity_play_image_view.setImageResource(R.drawable.pause_button_background)
-                startService(currentSongName)
-            }
+            log("MainActivity: $it")
+            startService(currentSongName)
+            main_activity_play_image_view.setImageResource(if(it.isPlaying) R.drawable.play_button_background else R.drawable.pause_button_background)
         }
     }
 
@@ -226,7 +220,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         mediaPlayer?.let {
             val intent = Intent(this, PlayMusicService::class.java)
             intent.putExtra(Constants.SONG_NAME, currentSong)
-            ContextCompat.startForegroundService(this , intent)
+            ContextCompat.startForegroundService(this, intent)
         }
     }
 }

@@ -40,8 +40,8 @@ fun toast(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT)
     Toast.makeText(context, message, duration).show()
 }
 
-fun Context.log(message: String) {
-    Log.d("Liad", "${this::class.java.simpleName} $message")
+fun Context.log(message: String , tag : String = "Liad") {
+    Log.d(tag, "${this::class.java.simpleName} $message")
 }
 
 fun <T> MutableList<T>.clearAndAddAll(newData: List<T>) {

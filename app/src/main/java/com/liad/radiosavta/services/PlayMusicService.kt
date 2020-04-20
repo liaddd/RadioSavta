@@ -15,6 +15,7 @@ import com.liad.radiosavta.activities.MainActivity
 import com.liad.radiosavta.managers.PlayAudioManager
 import com.liad.radiosavta.receivers.AudioPlayerBroadcastReceiver
 import com.liad.radiosavta.utils.Constants
+import com.liad.radiosavta.utils.extension.log
 
 class PlayMusicService : Service() {
 
@@ -25,6 +26,7 @@ class PlayMusicService : Service() {
 
         val songName = intent.extras?.getString(Constants.SONG_NAME)
         PlayAudioManager.mediaPlayer?.let {
+            log("PlayMusicService $it")
             if (it.isPlaying) {
                 showNotification(songName)
                 PlayAudioManager.pauseAudio()

@@ -32,12 +32,16 @@ class RadioSavtaApplication : Application() {
             val name = "RadioSavta Channel"
             val descriptionText = "Radio Savta audio controllers notification"
             val importance = NotificationManager.IMPORTANCE_DEFAULT
-            val channel = NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, name, importance).apply {
-                description = descriptionText
-            }
+            val channel =
+                NotificationChannel(Constants.NOTIFICATION_CHANNEL_ID, name, importance).apply {
+                    description = descriptionText
+                }
             // Register the channel with the system
             val notificationManager: NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            channel.setSound(null, null)
+            channel.description = "no sound"
+            channel.enableVibration(false)
             notificationManager.createNotificationChannel(channel)
         }
     }
