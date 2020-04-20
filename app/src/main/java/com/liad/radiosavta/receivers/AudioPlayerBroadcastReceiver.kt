@@ -12,9 +12,9 @@ class AudioPlayerBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent) {
         context?.let {
-            val isPlaying = intent.extras?.getBoolean(Constants.IS_PLAYING) ?: false
-            Log.i("Liad" , "isPlaying: $isPlaying")
+            val songName = intent.extras?.getString(Constants.SONG_NAME) ?: ""
             val playMusicIntent = Intent(context, PlayMusicService::class.java)
+            playMusicIntent.putExtra(Constants.SONG_NAME , songName)
             ContextCompat.startForegroundService(it, playMusicIntent)
         }
     }

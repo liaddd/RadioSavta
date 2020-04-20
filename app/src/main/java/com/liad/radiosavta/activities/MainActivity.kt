@@ -20,6 +20,7 @@ import com.liad.radiosavta.adapters.FragmentPagerAdapter
 import com.liad.radiosavta.managers.PlayAudioManager
 import com.liad.radiosavta.services.PlayMusicService
 import com.liad.radiosavta.utils.Constants
+import com.liad.radiosavta.utils.extension.log
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.ext.android.inject
@@ -148,8 +149,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         val currentSongName = (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
         mediaPlayer?.let {
             if (it.isPlaying) {
-                it.pause()
                 main_activity_play_image_view.setImageResource(R.drawable.play_button_background)
+                startService(currentSongName)
             } else {
                 main_activity_play_image_view.setImageResource(R.drawable.pause_button_background)
                 startService(currentSongName)

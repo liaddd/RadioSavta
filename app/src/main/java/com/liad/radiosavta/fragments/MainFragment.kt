@@ -32,7 +32,6 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View = inflater.inflate(R.layout.fragment_main, container, false)
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -86,7 +85,6 @@ class MainFragment : Fragment() {
     private fun getAdapterListener(): ProgramsAdapter.IProgramListener? =
         object : ProgramsAdapter.IProgramListener {
             override fun onClick(program: Program) {
-                // todo Liad - handle program click (navigate to second tab and move to child fragment - ProgramDetailsFragment)
                 listener?.onProgramClicked(program)
             }
         }

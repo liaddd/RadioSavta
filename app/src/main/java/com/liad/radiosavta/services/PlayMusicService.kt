@@ -18,9 +18,6 @@ import com.liad.radiosavta.utils.Constants
 
 class PlayMusicService : Service() {
 
-
-    private val NOTIFICATION_DELETED_ACTION: String = "NOTIFICATION_DELETED"
-
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
@@ -42,15 +39,18 @@ class PlayMusicService : Service() {
 
     private fun showNotification(title: String? = "", isPlaying: Boolean = false) {
         // intent notification clicked
-        val intent = Intent(this, MainActivity::class.java).apply {
+        val notificationClickedIntent = Intent(this, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         // action for notification click
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+        val notificationClickedPendingIntent =
+            PendingIntent.getActivity(this, 0, notificationClickedIntent, 0)
 
         val playClickedIntent = Intent(this, AudioPlayerBroadcastReceiver::class.java)
+
         playClickedIntent.putExtra(Constants.SONG_NAME, title)
         playClickedIntent.putExtra(Constants.IS_PLAYING, !isPlaying)
+
         val playActionIntent = PendingIntent.getBroadcast(
             this,
             0,
@@ -58,15 +58,9 @@ class PlayMusicService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        val deleteIntent = Intent(NOTIFICATION_DELETED_ACTION)
-        val deletePendingIntent = PendingIntent.getBroadcast(this , 0 , deleteIntent , 0)
-
         val bitmap = BitmapFactory.decodeResource(this.resources, R.drawable.savta_rounded_logo)
         val notification = NotificationCompat.Builder(this, "1")
             .setSmallIcon(R.drawable.savta_rounded_logo)
-            //.setLargeIcon(BitmapFactory.decodeResource(this.resources, R.drawable.savta_rounded_logo))
-            /*.setCustomContentView(collapsedView)
-            .setCustomBigContentView(expendedView)*/
             .setContentTitle(title)
             .setContentText(null)
             .setLargeIcon(bitmap)
@@ -78,18 +72,19 @@ class PlayMusicService : Service() {
             .setStyle(/*NotificationCompat.DecoratedCustomViewStyle()*/androidx.media.app.NotificationCompat.MediaStyle()
                 .setShowActionsInCompactView()
             )
-            .setDeleteIntent(deletePendingIntent)
-            .setContentIntent(pendingIntent)
+            .setContentIntent(notificationClickedPendingIntent)
             .setDefaults(Notification.DEFAULT_LIGHTS or Notification.DEFAULT_SOUND)
             .setVibrate(longArrayOf(0L))
             .setChannelId(Constants.NOTIFICATION_CHANNEL_ID)
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .build()
 
-        if (isPlaying)
+        if (isPlaying) {
             startForeground(1, notification)
-        else
+        } else {
+            stopForeground(false)
             NotificationManagerCompat.from(this).notify(1, notification)
+        }
     }
 
     override fun onDestroy() {
