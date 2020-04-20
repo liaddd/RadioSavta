@@ -13,9 +13,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp"
+            android:layout_marginTop="@dimen/size_32dp"
+            app:cardCornerRadius="@dimen/size_5dp"
+            app:cardElevation="@dimen/size_2dp"
             app:cardUseCompatPadding="true">
 
         <ImageView

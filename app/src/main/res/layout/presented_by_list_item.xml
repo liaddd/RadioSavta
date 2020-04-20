@@ -11,8 +11,8 @@
             android:id="@+id/program_list_item_image_container"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="5dp"
-            app:cardElevation="2dp"
+            app:cardCornerRadius="@dimen/size_5dp"
+            app:cardElevation="@dimen/size_2dp"
             app:cardUseCompatPadding="true">
 
         <ImageView

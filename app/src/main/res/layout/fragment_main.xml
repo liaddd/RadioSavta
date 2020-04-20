@@ -30,7 +30,7 @@
 
     <TextView
             android:id="@+id/main_fragment_song_name"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/size_0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_32dp"
             android:layout_marginEnd="@dimen/size_32dp"
