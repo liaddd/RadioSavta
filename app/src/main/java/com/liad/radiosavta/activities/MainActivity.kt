@@ -12,6 +12,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import co.climacell.statefulLiveData.core.StatefulData
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.InterstitialAd
+import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.liad.radiosavta.R
@@ -65,7 +69,22 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         setFullScreen()
         setContentView(R.layout.activity_main)
 
+        // initialize MobileAds to whole app
+        MobileAds.initialize(this)
+        initInterstitialAd()
         initViews()
+    }
+
+    private fun initInterstitialAd() {
+        val interstitialAd = InterstitialAd(this)
+        interstitialAd.adUnitId =
+            getString(R.string.admob_test_app_id)
+        interstitialAd.loadAd(AdRequest.Builder().build())
+        interstitialAd.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                if (interstitialAd.isLoaded) interstitialAd.show()
+            }
+        }
     }
 
     override fun onTabSelected(tab: TabLayout.Tab?) {

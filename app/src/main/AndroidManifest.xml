@@ -3,7 +3,7 @@
         package="com.liad.radiosavta">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
             android:name=".RadioSavtaApplication"
@@ -14,7 +14,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:usesCleartextTraffic="true">
-        <activity android:name=".activities.SplashActivity"
+        <meta-data
+                android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+                android:value="true" />
+
+        <activity
+                android:name=".activities.SplashActivity"
                 android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +36,8 @@
 
             </intent-filter>
         </activity>
-        <receiver android:name=".receivers.AudioPlayerBroadcastReceiver"/>
+
+        <receiver android:name=".receivers.AudioPlayerBroadcastReceiver" />
         <service android:name=".services.PlayMusicService" />
     </application>
 

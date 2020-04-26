@@ -27,12 +27,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:tabGravity="fill"
+            app:tabIndicatorHeight="@dimen/size_0dp"
+            app:tabMode="fixed"
             app:tabPaddingBottom="-1dp"
             app:tabPaddingEnd="-1dp"
             app:tabPaddingStart="-1dp"
-            app:tabPaddingTop="-1dp"
-            app:tabIndicatorHeight="@dimen/size_0dp"
-            app:tabMode="fixed"/>
+            app:tabPaddingTop="-1dp" />
 
     <ImageView
             android:id="@+id/main_activity_play_image_view"

@@ -12,10 +12,11 @@
         </shape>
     </item>
 
-    <item android:drawable="@drawable/ic_pause_24dp"
-            android:right="@dimen/size_12dp"
+    <item
+            android:bottom="@dimen/size_12dp"
+            android:drawable="@drawable/ic_pause_24dp"
             android:left="@dimen/size_12dp"
-            android:top="@dimen/size_12dp"
-            android:bottom="@dimen/size_12dp"/>
+            android:right="@dimen/size_12dp"
+            android:top="@dimen/size_12dp" />
 
 </layer-list>

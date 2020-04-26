@@ -9,18 +9,17 @@
         android:toYScale="1.0" />-->
 
     <alpha
-            android:fromAlpha="0.1"
-            android:toAlpha="1"
             android:duration="800"
-            android:repeatMode="reverse"
+            android:fromAlpha="0.1"
             android:repeatCount="infinite"
-            />
+            android:repeatMode="reverse"
+            android:toAlpha="1" />
 
     <translate
             android:duration="800"
             android:fromYDelta="100%"
-            android:repeatMode="reverse"
             android:repeatCount="infinite"
+            android:repeatMode="reverse"
             android:toYDelta="20%" />
 
 </set>

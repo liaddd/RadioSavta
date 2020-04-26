@@ -40,7 +40,7 @@ fun toast(context: Context, message: String, duration: Int = Toast.LENGTH_SHORT)
     Toast.makeText(context, message, duration).show()
 }
 
-fun Context.log(message: String , tag : String = "Liad") {
+fun Context.log(message: String, tag: String = "Liad") {
     Log.d(tag, "${this::class.java.simpleName} $message")
 }
 
@@ -58,4 +58,9 @@ fun convertIntToDay(day: Int): String = when (day) {
     5 -> "Fridays"
     6 -> "Saturdays"
     else -> "not implemented"
+}
+
+fun String.removeSeconds(): String {
+    val arr = if (this.contains(":")) this.split(":") else return this
+    return "${arr[0]}:${arr[1]}"
 }

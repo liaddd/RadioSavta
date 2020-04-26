@@ -5,10 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
-import androidx.cardview.widget.CardView
-import androidx.core.view.children
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +18,7 @@ import com.liad.radiosavta.models.Program
 import com.liad.radiosavta.models.User
 import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.utils.extension.convertIntToDay
+import com.liad.radiosavta.utils.extension.removeSeconds
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.fragment_program_details.*
 import org.koin.android.ext.android.inject
@@ -106,10 +103,14 @@ class ProgramDetailsFragment : Fragment() {
                     program.getCover() ?: program.users?.let { users -> users[0].getProfileImg() })
                 .into(program_details_fragment_image_view)
         }
+
+        val startTime = program.programTimes?.startTime?.removeSeconds()
+        val endTime = program.programTimes?.endTime?.removeSeconds()
+
         program_details_fragment_hour_text_view.text = getString(
             R.string.hours,
-            program.programTimes?.startTime,
-            program.programTimes?.endTime
+            startTime,
+            endTime
         )
         program.users?.let { presentedByAdapter.setUsers(it) }
         program_details_fragment_time_text_view.text =

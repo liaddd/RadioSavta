@@ -5,6 +5,7 @@
         android:id="@+id/program_details_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@android:color/black"
         tools:context=".fragments.ProgramDetailsFragment">
 
     <androidx.cardview.widget.CardView
@@ -35,7 +36,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/size_16dp"
             android:textColor="@android:color/white"
-            android:textSize="@dimen/size_24dp" />
+            android:textSize="@dimen/text_24sp" />
 
     <TextView
             android:id="@+id/program_details_fragment_secondary_title"
@@ -50,41 +51,45 @@
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_16sp" />
 
-
-    <TextView
-            android:id="@+id/program_details_fragment_time_text_view"
-            android:layout_width="wrap_content"
+    <LinearLayout
+            android:id="@+id/program_details_time_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/program_details_fragment_secondary_title"
-            android:layout_alignStart="@id/program_details_fragment_presented_by_text_view"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/size_16dp"
-            android:drawableStart="@drawable/ic_date_24dp"
-            android:drawablePadding="@dimen/size_8dp"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_12sp" />
+            android:layout_margin="@dimen/size_16dp"
+            android:gravity="center_horizontal">
 
-    <TextView
-            android:id="@+id/program_details_fragment_hour_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/program_details_fragment_time_text_view"
-            android:layout_alignStart="@+id/program_details_fragment_time_text_view"
-            android:layout_centerHorizontal="true"
-            android:drawableStart="@drawable/ic_time_24dp"
-            android:drawablePadding="@dimen/size_8dp"
-            android:gravity="center_vertical"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_12sp" />
+        <TextView
+                android:id="@+id/program_details_fragment_time_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:drawableStart="@drawable/ic_date_24dp"
+                android:drawablePadding="@dimen/size_8dp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_12sp" />
+
+        <TextView
+                android:id="@+id/program_details_fragment_hour_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/size_8dp"
+                android:drawableStart="@drawable/ic_time_24dp"
+                android:drawablePadding="@dimen/size_8dp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_12sp" />
+
+    </LinearLayout>
+
 
     <TextView
             android:id="@+id/program_details_fragment_presented_by_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/program_details_fragment_hour_text_view"
+            android:layout_below="@+id/program_details_time_container"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/size_24dp"
+            android:layout_marginTop="@dimen/size_16dp"
             android:text="@string/presented_by"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_18sp" />
