@@ -4,7 +4,9 @@ import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
+import android.media.MediaPlayer
 import android.os.Build
+import android.util.Log
 import com.liad.radiosavta.di.appModule
 import com.liad.radiosavta.utils.Constants
 import org.koin.core.context.startKoin
@@ -14,11 +16,44 @@ class RadioSavtaApplication : Application() {
     companion object {
         lateinit var instance: Application
             private set
+
+        var mediaPlayer: MediaPlayer? = null
+
+        fun initMediaPlayer(): MediaPlayer? {
+            if (mediaPlayer == null) {
+                mediaPlayer = MediaPlayer()
+                try {
+                    mediaPlayer?.setDataSource(Constants.PLAY_URL)
+                    mediaPlayer?.prepare()
+                } catch (e: IllegalArgumentException) {
+                    e.printStackTrace()
+                }
+            }
+            return mediaPlayer
+        }
+
+        fun playAudio() {
+            Log.i("Liad", "Playing audio!")
+            mediaPlayer?.start()
+        }
+
+        fun pauseAudio() {
+            Log.e("Liad", "Pausing audio!")
+            if (mediaPlayer != null) {
+                try {
+                    mediaPlayer?.reset()
+                    mediaPlayer = null
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
+        mediaPlayer = initMediaPlayer()
         instance = this
         startKoin {
             modules(listOf(appModule))
@@ -45,4 +80,5 @@ class RadioSavtaApplication : Application() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
 }

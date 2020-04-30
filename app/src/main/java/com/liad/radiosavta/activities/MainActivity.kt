@@ -19,8 +19,8 @@ import com.google.android.gms.ads.MobileAds
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.liad.radiosavta.R
+import com.liad.radiosavta.RadioSavtaApplication
 import com.liad.radiosavta.adapters.FragmentPagerAdapter
-import com.liad.radiosavta.managers.PlayAudioManager
 import com.liad.radiosavta.services.PlayMusicService
 import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.utils.extension.log
@@ -128,7 +128,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private fun initViews() {
         fragmentPagerAdapter = FragmentPagerAdapter(this)
 
-        mediaPlayer = PlayAudioManager.initMediaPlayer()
+        mediaPlayer = RadioSavtaApplication.mediaPlayer
         main_activity_play_image_view.setOnClickListener(this)
 
         viewPager = main_activity_view_pager.apply {

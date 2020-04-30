@@ -1,12 +1,8 @@
 package com.liad.radiosavta.managers
 
-import android.media.MediaPlayer
-import android.util.Log
-import com.liad.radiosavta.utils.Constants
-
 class PlayAudioManager {
 
-    companion object {
+    /*companion object {
         var mediaPlayer: MediaPlayer? = null
             private set
 
@@ -39,5 +35,5 @@ class PlayAudioManager {
                 }
             }
         }
-    }
+    }*/
 }
