@@ -20,6 +20,6 @@ val appModule = module {
     // single instance of SavtaRepository
     single { RadioRepository(get(), get()) }
 
-
+    // factory for programs view model
     factory { ProgramsViewModel(get()) }
 }

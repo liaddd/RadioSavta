@@ -11,6 +11,8 @@ import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.liad.radiosavta.R
+import com.liad.radiosavta.RadioSavtaApplication.Companion.initMediaPlayer
+import com.liad.radiosavta.RadioSavtaApplication.Companion.mediaPlayer
 import com.liad.radiosavta.activities.MainActivity
 import com.liad.radiosavta.managers.PlayAudioManager
 import com.liad.radiosavta.receivers.AudioPlayerBroadcastReceiver
@@ -22,7 +24,7 @@ class PlayMusicService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-    // TODO Liad - refactor service to
+    // TODO Liad - refactor service
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
         PlayAudioManager.initMediaPlayer()
 

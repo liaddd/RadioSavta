@@ -11,8 +11,8 @@ import com.liad.radiosavta.R
 
 class SettingsFragment : Fragment() {
 
-    companion object{
-        fun newInstance() : SettingsFragment = SettingsFragment()
+    companion object {
+        fun newInstance(): SettingsFragment = SettingsFragment()
     }
 
     override fun onCreateView(

@@ -167,7 +167,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         mediaPlayer?.let {
             log("MainActivity: $it")
             startService(currentSongName)
-            main_activity_play_image_view.setImageResource(if(it.isPlaying) R.drawable.play_button_background else R.drawable.pause_button_background)
+            main_activity_play_image_view.setImageResource(if (it.isPlaying) R.drawable.play_button_background else R.drawable.pause_button_background)
         }
     }
 
