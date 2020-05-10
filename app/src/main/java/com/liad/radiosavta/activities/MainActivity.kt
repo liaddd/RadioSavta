@@ -133,12 +133,9 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
         viewPager = main_activity_view_pager.apply {
             adapter = fragmentPagerAdapter
+            isUserInputEnabled = false
+            offscreenPageLimit = 2
         }
-
-        // disable view pager scrolling
-        viewPager.isUserInputEnabled = false
-
-        viewPager.offscreenPageLimit = 2
 
         initTabLayout()
 
