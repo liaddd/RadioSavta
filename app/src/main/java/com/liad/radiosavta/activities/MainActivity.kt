@@ -87,6 +87,22 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         }
     }
 
+    private fun initViews() {
+        fragmentPagerAdapter = FragmentPagerAdapter(this)
+
+        mediaPlayer = RadioSavtaApplication.mediaPlayer
+        main_activity_play_image_view.setOnClickListener(this)
+
+        viewPager = main_activity_view_pager.apply {
+            adapter = fragmentPagerAdapter
+            isUserInputEnabled = false
+            offscreenPageLimit = 2
+        }
+
+        initTabLayout()
+
+    }
+
     override fun onTabSelected(tab: TabLayout.Tab?) {
         tab?.let { handleTabState(it) }
     }
@@ -125,22 +141,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         }
     }
 
-    private fun initViews() {
-        fragmentPagerAdapter = FragmentPagerAdapter(this)
-
-        mediaPlayer = RadioSavtaApplication.mediaPlayer
-        main_activity_play_image_view.setOnClickListener(this)
-
-        viewPager = main_activity_view_pager.apply {
-            adapter = fragmentPagerAdapter
-            isUserInputEnabled = false
-            offscreenPageLimit = 2
-        }
-
-        initTabLayout()
-
-    }
-
     private fun initTabLayout() {
         tabLayout = main_activity_tab_layout
 
@@ -159,12 +159,20 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     }
 
     private fun onPlayPauseClicked() {
+        mediaPlayer = RadioSavtaApplication.mediaPlayer
         val currentSongName =
             (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
         mediaPlayer?.let {
             log("MainActivity: $it")
             startService(currentSongName)
             main_activity_play_image_view.setImageResource(if (it.isPlaying) R.drawable.play_button_background else R.drawable.pause_button_background)
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        mediaPlayer?.let {
+            main_activity_play_image_view.setImageResource(if (it.isPlaying) R.drawable.pause_button_background else R.drawable.play_button_background)
         }
     }
 

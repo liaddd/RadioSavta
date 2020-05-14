@@ -52,9 +52,9 @@ class RadioSavtaApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        createNotificationChannel()
-        mediaPlayer = initMediaPlayer()
         instance = this
+        createNotificationChannel()
+        initMediaPlayer()
         startKoin {
             modules(listOf(appModule))
         }
