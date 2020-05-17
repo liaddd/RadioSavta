@@ -5,4 +5,5 @@
     <string name="presented_by">Presented By</string>
     <string name="recorded_shows">Recorded Shows</string>
     <string name="no_recorded_shows_empty_state">This Program Have no recorded shows</string>
+    <string name="featured_shows">Featured Shows</string>
 </resources>

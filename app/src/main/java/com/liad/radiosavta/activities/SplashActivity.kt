@@ -33,9 +33,8 @@ class SplashActivity : AppCompatActivity() {
                 }
                 is StatefulData.Loading -> {
                 }
-                is StatefulData.Error -> {
-                    toast(this, "Something went wrong O_o")
-                }
+                is StatefulData.Error -> toast(this, "Something went wrong O_o")
+
             }
         })
     }

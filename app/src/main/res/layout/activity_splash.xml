@@ -21,6 +21,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
 
+    <!-- replaced with lottie-->
     <com.github.ybq.android.spinkit.SpinKitView
             android:id="@+id/activity_splash_progress_bar"
             style="@style/SpinKitView.Large.Wave"

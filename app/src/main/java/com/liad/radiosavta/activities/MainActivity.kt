@@ -1,7 +1,6 @@
 package com.liad.radiosavta.activities
 
 import android.content.Intent
-import android.media.MediaPlayer
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -35,7 +34,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private lateinit var tabLayout: TabLayout
     private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
 
-    private var mediaPlayer: MediaPlayer? = null
     private val programsViewModel: ProgramsViewModel by inject()
 
     // TODO Liad - refactor all strange lists
@@ -78,7 +76,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private fun initInterstitialAd() {
         val interstitialAd = InterstitialAd(this)
         interstitialAd.adUnitId =
-            getString(R.string.admob_test_app_id)
+            getString(R.string.ad_mob_test_app_id)
         interstitialAd.loadAd(AdRequest.Builder().build())
         interstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
@@ -90,7 +88,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private fun initViews() {
         fragmentPagerAdapter = FragmentPagerAdapter(this)
 
-        mediaPlayer = RadioSavtaApplication.mediaPlayer
         main_activity_play_image_view.setOnClickListener(this)
 
         viewPager = main_activity_view_pager.apply {
@@ -159,19 +156,18 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     }
 
     private fun onPlayPauseClicked() {
-        mediaPlayer = RadioSavtaApplication.mediaPlayer
         val currentSongName =
             (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
-        mediaPlayer?.let {
+        RadioSavtaApplication.mediaPlayer?.let {
             log("MainActivity: $it")
             startService(currentSongName)
             main_activity_play_image_view.setImageResource(if (it.isPlaying) R.drawable.play_button_background else R.drawable.pause_button_background)
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        mediaPlayer?.let {
+    override fun onResume() {
+        super.onResume()
+        RadioSavtaApplication.mediaPlayer?.let {
             main_activity_play_image_view.setImageResource(if (it.isPlaying) R.drawable.pause_button_background else R.drawable.play_button_background)
         }
     }
@@ -241,10 +237,12 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private fun goToMainPage() = tabLayout.getTabAt(0)?.select()
 
     private fun startService(currentSong: String? = "") {
-        mediaPlayer?.let {
+        RadioSavtaApplication.mediaPlayer?.let {
             val intent = Intent(this, PlayMusicService::class.java)
             intent.putExtra(Constants.SONG_NAME, currentSong)
             ContextCompat.startForegroundService(this, intent)
         }
+
+
     }
 }

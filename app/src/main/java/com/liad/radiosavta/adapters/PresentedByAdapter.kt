@@ -39,8 +39,8 @@ class PresentedByAdapter : RecyclerView.Adapter<PresentedByAdapter.ViewHolder>()
         holder.itemView.setOnClickListener { listener?.onClick(user, it) }
     }
 
-    fun setUsers(data: List<User>) {
-        usersList.clearAndAddAll(data)
+    fun setUsers(newUsers: List<User>) {
+        usersList.clearAndAddAll(newUsers)
         notifyDataSetChanged()
     }
 

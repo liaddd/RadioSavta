@@ -17,7 +17,20 @@ class RadioSavtaApplication : Application() {
         lateinit var instance: Application
             private set
 
+        @Volatile
         var mediaPlayer: MediaPlayer? = null
+            get() {
+                if (field == null) {
+                    field = MediaPlayer()
+                    try {
+                        mediaPlayer?.setDataSource(Constants.PLAY_URL)
+                        mediaPlayer?.prepare()
+                    } catch (e: IllegalArgumentException) {
+                        e.printStackTrace()
+                    }
+                }
+                return field
+            }
 
         fun initMediaPlayer(): MediaPlayer? {
             if (mediaPlayer == null) {
@@ -34,6 +47,9 @@ class RadioSavtaApplication : Application() {
 
         fun playAudio() {
             Log.i("Liad", "Playing audio!")
+            if (mediaPlayer == null) {
+                mediaPlayer = initMediaPlayer()
+            }
             mediaPlayer?.start()
         }
 
@@ -41,8 +57,8 @@ class RadioSavtaApplication : Application() {
             Log.e("Liad", "Pausing audio!")
             if (mediaPlayer != null) {
                 try {
-                    mediaPlayer?.reset()
-                    mediaPlayer = null
+                    mediaPlayer?.pause()
+                    //mediaPlayer = null
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -59,6 +75,7 @@ class RadioSavtaApplication : Application() {
             modules(listOf(appModule))
         }
     }
+
 
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

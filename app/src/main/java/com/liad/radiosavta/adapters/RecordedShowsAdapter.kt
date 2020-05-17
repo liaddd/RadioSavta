@@ -15,7 +15,6 @@ import com.liad.radiosavta.utils.extension.clearAndAddAll
 
 class RecordedShowsAdapter : RecyclerView.Adapter<RecordedShowsAdapter.ViewHolder>() {
 
-
     private var recordedShowsList = mutableListOf<RecordedShow>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

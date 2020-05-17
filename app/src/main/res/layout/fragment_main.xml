@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/size_12dp"
             android:layout_marginBottom="@dimen/size_8dp"
-            android:text="Featured Shows"
+            android:text="@string/featured_shows"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_24sp"
             app:layout_constraintBottom_toTopOf="@+id/main_fragment_recycler_view"
@@ -58,8 +58,8 @@
             android:id="@+id/main_fragment_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/size_32dp"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="@dimen/size_32dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

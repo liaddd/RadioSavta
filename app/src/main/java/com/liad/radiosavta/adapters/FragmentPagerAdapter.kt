@@ -7,7 +7,6 @@ import com.liad.radiosavta.fragments.*
 import com.liad.radiosavta.models.Program
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class FragmentPagerAdapter(private var fragmentActivity: FragmentActivity) :
     FragmentStateAdapter(fragmentActivity) {
 
@@ -23,9 +22,7 @@ class FragmentPagerAdapter(private var fragmentActivity: FragmentActivity) :
         return object : MainFragment.IOnProgramClickedListener {
             override fun onProgramClicked(program: Program) {
                 fragmentActivity.main_activity_tab_layout?.getTabAt(1)?.select()
-                (fragments[1] as? InnerContainerFragment)?.let {
-                    it.openProgramDetails(program.id ?: 0)
-                }
+                (fragments[1] as? InnerContainerFragment)?.openProgramDetails(program.id ?: 0)
             }
         }
     }

@@ -18,30 +18,24 @@ import com.liad.radiosavta.RadioSavtaApplication.Companion.playAudio
 import com.liad.radiosavta.activities.MainActivity
 import com.liad.radiosavta.receivers.AudioPlayerBroadcastReceiver
 import com.liad.radiosavta.utils.Constants
-import com.liad.radiosavta.utils.extension.toast
 
 class PlayMusicService : Service() {
 
-
-    private var mediaPlayer : MediaPlayer? = null
+    private var mediaPlayer: MediaPlayer? = null
 
     override fun onBind(intent: Intent?): IBinder? = null
 
     override fun onCreate() {
         super.onCreate()
-        mediaPlayer = RadioSavtaApplication.mediaPlayer
-        if (mediaPlayer == null){
-            mediaPlayer = RadioSavtaApplication.initMediaPlayer()
-        }
         Log.d("Liad", "PlayMusicService onCreate()")
     }
 
     // TODO Liad - refactor service
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
+        mediaPlayer = RadioSavtaApplication.mediaPlayer
         val songName = intent.extras?.getString(Constants.SONG_NAME)
         mediaPlayer?.let {
-            toast(RadioSavtaApplication.instance , "PlayMusicService onStartCommand()")
             if (it.isPlaying) {
                 showNotification(songName)
                 pauseAudio()
@@ -74,7 +68,6 @@ class PlayMusicService : Service() {
             playClickedIntent,
             PendingIntent.FLAG_UPDATE_CURRENT
         )
-
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.savta_rounded_logo)
         val notification = NotificationCompat.Builder(this, "1")
             .setSmallIcon(R.drawable.savta_rounded_logo)
@@ -100,14 +93,13 @@ class PlayMusicService : Service() {
         if (isPlaying) {
             startForeground(1, notification)
         } else {
-            //stopForeground(false)
+            stopForeground(false)
             NotificationManagerCompat.from(this).notify(1, notification)
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        toast(RadioSavtaApplication.instance , "PlayMusicService Destroyed!")
         Log.e("Liad", "Service Destroyed!")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             stopForeground(false)

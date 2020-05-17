@@ -50,15 +50,9 @@ class MainFragment : Fragment() {
     private fun setObservers() {
         programsViewModel.getPrograms().observe(viewLifecycleOwner, Observer {
             when (it) {
-                is StatefulData.Success -> {
-                    programsAdapter.setPrograms(it.data.shuffled())
-                }
-                is StatefulData.Loading -> {
-                    showProgress()
-                }
-                is StatefulData.Error -> {
-                    showProgress(false)
-                }
+                is StatefulData.Success -> programsAdapter.setPrograms(it.data.shuffled())
+                is StatefulData.Loading -> showProgress()
+                is StatefulData.Error -> showProgress(false)
             }
         })
 
@@ -68,12 +62,8 @@ class MainFragment : Fragment() {
                     showProgress(false)
                     main_fragment_song_name.text = it.data
                 }
-                is StatefulData.Loading -> {
-                    showProgress()
-                }
-                is StatefulData.Error -> {
-                    showProgress(false)
-                }
+                is StatefulData.Loading -> showProgress()
+                is StatefulData.Error -> showProgress(false)
             }
         })
     }
@@ -88,7 +78,6 @@ class MainFragment : Fragment() {
                 listener?.onProgramClicked(program)
             }
         }
-
 
     interface IOnProgramClickedListener {
         fun onProgramClicked(program: Program)
