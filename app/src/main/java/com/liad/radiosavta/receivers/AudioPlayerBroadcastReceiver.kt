@@ -10,6 +10,7 @@ class AudioPlayerBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent) {
         val songName = intent.extras?.getString(Constants.SONG_NAME) ?: ""
+        val isPlaying = intent.extras?.getBoolean(Constants.IS_PLAYING) ?: false
         val playMusicIntent = Intent(context, PlayMusicService::class.java)
         playMusicIntent.putExtra(Constants.SONG_NAME, songName)
         context?.startService(playMusicIntent)

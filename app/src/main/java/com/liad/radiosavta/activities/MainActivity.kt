@@ -25,6 +25,7 @@ import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.utils.extension.log
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.banner.*
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.OnClickListener {
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         // initialize MobileAds to whole app
         MobileAds.initialize(this)
         initInterstitialAd()
+        initAdView()
         initViews()
     }
 
@@ -83,6 +85,12 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
                 if (interstitialAd.isLoaded) interstitialAd.show()
             }
         }
+    }
+
+    private fun initAdView() {
+        val adView = banner_adView
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
     }
 
     private fun initViews() {
@@ -242,7 +250,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
             intent.putExtra(Constants.SONG_NAME, currentSong)
             ContextCompat.startForegroundService(this, intent)
         }
-
-
     }
+
 }
+
+

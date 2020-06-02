@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import co.climacell.statefulLiveData.core.StatefulData
-import com.google.android.gms.ads.AdRequest
 import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.ProgramsAdapter
 import com.liad.radiosavta.models.Program
@@ -18,7 +17,6 @@ import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.utils.Constants.PROGRAM_ID
 import com.liad.radiosavta.utils.extension.changeFragment
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
-import kotlinx.android.synthetic.main.banner.*
 import kotlinx.android.synthetic.main.fragment_programs.*
 import org.koin.android.ext.android.inject
 
@@ -40,15 +38,8 @@ class ProgramsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initAdView()
         initViews()
         setObservers()
-    }
-
-    private fun initAdView() {
-        val adView = banner_adView
-        val adRequest = AdRequest.Builder().build()
-        adView?.loadAd(adRequest)
     }
 
     private fun initViews() {
