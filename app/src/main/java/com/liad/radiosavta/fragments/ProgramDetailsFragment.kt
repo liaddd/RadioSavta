@@ -1,6 +1,5 @@
 package com.liad.radiosavta.fragments
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,19 +18,15 @@ import com.liad.radiosavta.models.User
 import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.utils.extension.convertIntToDay
 import com.liad.radiosavta.utils.extension.removeSeconds
+import com.liad.radiosavta.utils.extension.show
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.fragment_program_details.*
 import org.koin.android.ext.android.inject
 
-
 class ProgramDetailsFragment : Fragment() {
 
     companion object {
-        fun newInstance(bundle: Bundle? = null): ProgramDetailsFragment {
-            val programDetailsFragment = ProgramDetailsFragment()
-            if (bundle != null) programDetailsFragment.arguments = bundle
-            return programDetailsFragment
-        }
+        fun newInstance(): ProgramDetailsFragment = ProgramDetailsFragment()
     }
 
     private lateinit var presentedByRV: RecyclerView
@@ -44,12 +39,7 @@ class ProgramDetailsFragment : Fragment() {
 
     var programId: Int? = null
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = inflater.inflate(R.layout.fragment_program_details, container, false)
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_program_details, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -57,7 +47,6 @@ class ProgramDetailsFragment : Fragment() {
         initViews()
         setObservers()
     }
-
 
     private fun initViews() {
         activity?.let {
@@ -80,12 +69,10 @@ class ProgramDetailsFragment : Fragment() {
             programsViewModel.getProgramsById(id).observe(viewLifecycleOwner, Observer {
                 when (it) {
                     is StatefulData.Success -> {
-                        showProgress(false)
+                        program_details_fragment_progress_bar?.show(false)
                         populateFields(it.data)
                     }
-                    is StatefulData.Loading -> {
-                        showProgress()
-                    }
+                    is StatefulData.Loading -> program_details_fragment_progress_bar?.show()
                     is StatefulData.Error -> {
                     }
                 }
@@ -118,10 +105,10 @@ class ProgramDetailsFragment : Fragment() {
 
         program.recorded_shows?.let {
             if (it.isNullOrEmpty()) {
-                program_details_fragment_no_recorded_show_text.visibility = View.VISIBLE
+                program_details_fragment_no_recorded_show_text?.show()
             } else {
-                program_details_fragment_no_recorded_show_text.visibility = View.GONE
-                recordedShowRV.visibility = View.VISIBLE
+                program_details_fragment_no_recorded_show_text?.show(false)
+                recordedShowRV.show()
                 recordedShowsAdapter.setRecordedShow(it)
 
             }
@@ -134,10 +121,6 @@ class ProgramDetailsFragment : Fragment() {
                 // todo Liad - add flip animation to users click's
             }
         }
-
-    private fun showProgress(show: Boolean = true) {
-        program_details_fragment_progress_bar.visibility = if (show) View.VISIBLE else View.GONE
-    }
 
 }
 

@@ -16,6 +16,7 @@ import com.liad.radiosavta.models.Program
 import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.utils.Constants.PROGRAM_ID
 import com.liad.radiosavta.utils.extension.changeFragment
+import com.liad.radiosavta.utils.extension.show
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.fragment_programs.*
 import org.koin.android.ext.android.inject
@@ -57,20 +58,13 @@ class ProgramsFragment : Fragment() {
         programsViewModel.getPrograms().observe(viewLifecycleOwner, Observer {
             when (it) {
                 is StatefulData.Success -> {
-                    showProgress(false)
+                    programs_fragment_progress_bar?.show(false)
                     programAdapter.setPrograms(it.data)
                 }
-                is StatefulData.Loading -> {
-                    showProgress()
-                }
-                is StatefulData.Error -> {
-                }
+                is StatefulData.Loading -> programs_fragment_progress_bar?.show()
+                is StatefulData.Error -> {}
             }
         })
-    }
-
-    private fun showProgress(show: Boolean = true) {
-        programs_fragment_progress_bar.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun createAdapterListener(): ProgramsAdapter.IProgramListener? {

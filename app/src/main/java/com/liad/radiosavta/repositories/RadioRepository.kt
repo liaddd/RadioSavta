@@ -19,14 +19,12 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
     val statefulLiveDataUsers: StatefulLiveData<List<User>>
     val statefulLiveDataCurrentSong: StatefulLiveData<String>
 
-    private val apiRequest: ApiRequest
+    private val apiRequest: ApiRequest = retrofit.create(ApiRequest::class.java)
     private val executor = Executors.newSingleThreadExecutor()
 
-    private val dao: RadioSavtaDao
+    private val dao: RadioSavtaDao = radioSavtaDatabase.dao()
 
     init {
-        dao = radioSavtaDatabase.dao()
-        apiRequest = retrofit.create(ApiRequest::class.java)
 
         statefulLiveDataPrograms = getProgramsStatefulLiveData()
         statefulLiveDataUsers = getUsersStatefulLiveData()

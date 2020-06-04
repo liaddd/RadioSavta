@@ -16,24 +16,13 @@ class UsersAdapter : RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
 
     private val usersList = mutableListOf<User>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.users_list_item,
-                parent,
-                false
-            )
-        )
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.users_list_item, parent, false))
 
-    override fun getItemCount(): Int {
-        return usersList.size
-    }
+    override fun getItemCount(): Int = usersList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val user = usersList[position]
-
 
         Glide.with(holder.itemView.context)
             .load(user.getProfileImg())

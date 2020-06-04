@@ -50,10 +50,8 @@ class UsersFragment : Fragment() {
         programsViewModel.getUsers().observe(viewLifecycleOwner, Observer {
             when (it) {
                 is StatefulData.Success -> usersAdapter.setUsers(it.data)
-                is StatefulData.Loading -> {
-                }
-                is StatefulData.Error -> {
-                }
+                is StatefulData.Loading -> {}
+                is StatefulData.Error -> {}
             }
         })
     }

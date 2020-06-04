@@ -30,7 +30,7 @@ class SplashActivity : AppCompatActivity() {
                         changeActivity(MainActivity::class.java, true)
                     }, 1000)
                 }
-                is StatefulData.Loading -> { }
+                is StatefulData.Loading -> {}
                 is StatefulData.Error -> toast(this, "Something went wrong O_o")
 
             }

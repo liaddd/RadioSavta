@@ -5,7 +5,6 @@ import com.liad.radiosavta.repositories.RadioRepository
 
 class ProgramsViewModel(private val radioSavtaRepository: RadioRepository) : ViewModel() {
 
-
     fun getPrograms() = radioSavtaRepository.statefulLiveDataPrograms
 
     fun getProgramsById(id: Int) = radioSavtaRepository.getProgramById(id)

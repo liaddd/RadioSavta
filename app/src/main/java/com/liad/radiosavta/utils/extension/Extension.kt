@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
@@ -63,4 +64,8 @@ fun convertIntToDay(day: Int): String = when (day) {
 fun String.removeSeconds(): String {
     val arr = if (this.contains(":")) this.split(":") else return this
     return "${arr[0]}:${arr[1]}"
+}
+
+fun View.show(show : Boolean = true){
+    visibility = if(show) View.VISIBLE else View.GONE
 }

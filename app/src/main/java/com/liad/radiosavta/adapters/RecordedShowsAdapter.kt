@@ -17,19 +17,9 @@ class RecordedShowsAdapter : RecyclerView.Adapter<RecordedShowsAdapter.ViewHolde
 
     private var recordedShowsList = mutableListOf<RecordedShow>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.recorded_show_list_item,
-                parent,
-                false
-            )
-        )
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.recorded_show_list_item, parent, false))
 
-    override fun getItemCount(): Int {
-        return recordedShowsList.size
-    }
+    override fun getItemCount(): Int = recordedShowsList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 

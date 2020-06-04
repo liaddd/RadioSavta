@@ -18,19 +18,9 @@ class ProgramsAdapter : RecyclerView.Adapter<ProgramsAdapter.ViewHolder>() {
     private val programsList = mutableListOf<Program>()
     var listener: IProgramListener? = null
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.program_list_item,
-                parent,
-                false
-            )
-        )
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.program_list_item, parent, false))
 
-    override fun getItemCount(): Int {
-        return programsList.size
-    }
+    override fun getItemCount(): Int = programsList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val program = programsList[position]

@@ -47,21 +47,17 @@ class PlayMusicService : Service() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         // action for notification click
-        val notificationClickedPendingIntent =
-            PendingIntent.getActivity(this, 0, notificationClickedIntent, 0)
+        val notificationClickedPendingIntent = PendingIntent.getActivity(this, 0, notificationClickedIntent, 0)
 
         val playClickedIntent = Intent(this, AudioPlayerBroadcastReceiver::class.java)
 
         playClickedIntent.putExtra(Constants.SONG_NAME, title)
         playClickedIntent.putExtra(Constants.IS_PLAYING, !isPlaying)
 
-        val playActionIntent = PendingIntent.getBroadcast(
-            this,
-            0,
-            playClickedIntent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        val playActionIntent = PendingIntent.getBroadcast(this, 0, playClickedIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
         val bitmap = BitmapFactory.decodeResource(resources, R.drawable.savta_rounded_logo)
+
         val notification = NotificationCompat.Builder(this, "1")
             .setSmallIcon(R.drawable.savta_rounded_logo)
             .setContentTitle(title)
@@ -72,9 +68,7 @@ class PlayMusicService : Service() {
                 null,
                 playActionIntent
             )
-            .setStyle(
-                androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView()
-            )
+            .setStyle(androidx.media.app.NotificationCompat.MediaStyle().setShowActionsInCompactView())
             .setContentIntent(notificationClickedPendingIntent)
             .setDefaults(Notification.DEFAULT_LIGHTS or Notification.DEFAULT_SOUND)
             .setVibrate(longArrayOf(0L))
@@ -97,7 +91,6 @@ class PlayMusicService : Service() {
             stopForeground(false)
         }
         mediaPlayer?.apply { stop(); release() }
-
     }
 
 }

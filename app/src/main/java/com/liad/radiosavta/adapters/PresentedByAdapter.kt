@@ -14,27 +14,16 @@ class PresentedByAdapter : RecyclerView.Adapter<PresentedByAdapter.ViewHolder>()
 
     private val usersList = mutableListOf<User>()
     var listener: IUserClickedListener? = null
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.presented_by_list_item,
-                parent,
-                false
-            )
-        )
-    }
 
-    override fun getItemCount(): Int {
-        return usersList.size
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder = ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.presented_by_list_item, parent, false))
+
+    override fun getItemCount(): Int = usersList.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
         val user = usersList[position]
 
-        Glide.with(holder.itemView.context)
-            .load(user.getProfileImg())
-            .into(holder.imageView)
+        Glide.with(holder.itemView.context).load(user.getProfileImg()).into(holder.imageView)
 
         holder.itemView.setOnClickListener { listener?.onClick(user, it) }
     }
@@ -47,7 +36,6 @@ class PresentedByAdapter : RecyclerView.Adapter<PresentedByAdapter.ViewHolder>()
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val imageView: ImageView = itemView.findViewById(R.id.presented_by_item_image_view)
     }
-
 
     interface IUserClickedListener {
         fun onClick(user: User, view: View)
