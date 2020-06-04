@@ -14,6 +14,7 @@
     <dimen name="size_54dp">54dp</dimen>
     <dimen name="size_60dp">60dp</dimen>
     <dimen name="size_100dp">100dp</dimen>
+    <dimen name="size_120dp">120dp</dimen>
     <dimen name="size_150dp">150dp</dimen>
     <dimen name="size_200dp">200dp</dimen>
 
@@ -24,6 +25,5 @@
     <dimen name="text_24sp">24sp</dimen>
     <dimen name="text_36sp">36sp</dimen>
     <dimen name="text_48sp">48sp</dimen>
-    <dimen name="size_120dp">120dp</dimen>
 
 </resources>

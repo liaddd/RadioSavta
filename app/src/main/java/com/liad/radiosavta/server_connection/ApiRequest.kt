@@ -9,15 +9,15 @@ import retrofit2.http.Path
 
 interface ApiRequest {
 
-    @GET("/programs")
+    @GET("programs")
     fun getPrograms(): StatefulLiveData<List<Program>>
 
-    @GET("/programs/{programId}")
+    @GET("programs/{programId}")
     fun getProgramById(@Path("programId") id: Int): StatefulLiveData<Program>
 
-    @GET("/title")
+    @GET(/*"/title"*/"statistics/server")
     fun getCurrentPlayingSongTitle(): StatefulLiveData<StreamTitle>
 
-    @GET("/users")
+    @GET("users")
     fun getUsers(): StatefulLiveData<List<User>>
 }

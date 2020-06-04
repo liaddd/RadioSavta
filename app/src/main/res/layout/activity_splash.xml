@@ -20,16 +20,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-    <!-- replaced with lottie-->
-    <com.github.ybq.android.spinkit.SpinKitView
-            android:id="@+id/activity_splash_progress_bar"
-            style="@style/SpinKitView.Large.Wave"
-            android:layout_width="wrap_content"
+    <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/custom_dialog_fragment_lottie_animation_view"
+            android:layout_width="@dimen/size_200dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/size_16dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="sound.json"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/activity_splash_image_view" />
+            app:layout_constraintTop_toBottomOf="@+id/activity_splash_image_view"
+            app:lottie_loop="true" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

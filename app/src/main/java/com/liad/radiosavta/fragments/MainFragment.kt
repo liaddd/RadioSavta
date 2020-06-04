@@ -40,10 +40,9 @@ class MainFragment : Fragment() {
     }
 
     private fun initViews() {
-        main_fragment_recycler_view.apply {
+        main_fragment_recycler_view?.apply {
             adapter = programsAdapter
-            layoutManager =
-                activity?.let { LinearLayoutManager(it, RecyclerView.HORIZONTAL, false) }
+            layoutManager = activity?.let { LinearLayoutManager(it, RecyclerView.HORIZONTAL, false) }
         }
     }
 
@@ -56,7 +55,7 @@ class MainFragment : Fragment() {
             }
         })
 
-        programsViewModel.getCurrentPlayingSongTitle().observe(viewLifecycleOwner, Observer {
+        programsViewModel.getCurrentPlayingSongTitle().observeForever {
             when (it) {
                 is StatefulData.Success -> {
                     showProgress(false)
@@ -65,7 +64,7 @@ class MainFragment : Fragment() {
                 is StatefulData.Loading -> showProgress()
                 is StatefulData.Error -> showProgress(false)
             }
-        })
+        }
     }
 
     private fun showProgress(show: Boolean = true) {

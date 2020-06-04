@@ -23,7 +23,6 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        programsViewModel.getCurrentPlayingSongTitle()
         programsViewModel.getPrograms().observe(this, Observer {
             when (it) {
                 is StatefulData.Success -> {
@@ -31,8 +30,7 @@ class SplashActivity : AppCompatActivity() {
                         changeActivity(MainActivity::class.java, true)
                     }, 1000)
                 }
-                is StatefulData.Loading -> {
-                }
+                is StatefulData.Loading -> { }
                 is StatefulData.Error -> toast(this, "Something went wrong O_o")
 
             }

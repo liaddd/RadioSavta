@@ -8,7 +8,6 @@ import android.graphics.BitmapFactory
 import android.media.MediaPlayer
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.liad.radiosavta.R
@@ -25,12 +24,6 @@ class PlayMusicService : Service() {
 
     override fun onBind(intent: Intent?): IBinder? = null
 
-    override fun onCreate() {
-        super.onCreate()
-        Log.d("Liad", "PlayMusicService onCreate()")
-    }
-
-    // TODO Liad - refactor service
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
         mediaPlayer = RadioSavtaApplication.mediaPlayer
@@ -100,7 +93,6 @@ class PlayMusicService : Service() {
 
     override fun onDestroy() {
         super.onDestroy()
-        Log.e("Liad", "Service Destroyed!")
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             stopForeground(false)
         }

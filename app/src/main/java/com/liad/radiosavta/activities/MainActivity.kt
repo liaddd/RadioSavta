@@ -1,6 +1,9 @@
 package com.liad.radiosavta.activities
 
+import android.content.BroadcastReceiver
+import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
@@ -9,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.viewpager2.widget.ViewPager2
 import co.climacell.statefulLiveData.core.StatefulData
 import com.google.android.gms.ads.AdListener
@@ -34,6 +38,14 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
+
+    private lateinit var localBroadcastManager: LocalBroadcastManager
+
+    private val myBroadcast : BroadcastReceiver = object : BroadcastReceiver(){
+        override fun onReceive(context: Context?, intent: Intent?) {
+            updateUI(intent?.extras?.getBoolean(Constants.IS_PLAYING) ?: false)
+        }
+    }
 
     private val programsViewModel: ProgramsViewModel by inject()
 
@@ -73,12 +85,13 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         initInterstitialAd()
         initAdView()
         initViews()
+
+        localBroadcastManager.registerReceiver(myBroadcast , IntentFilter("WOW"))
     }
 
     private fun initInterstitialAd() {
         val interstitialAd = InterstitialAd(this)
-        interstitialAd.adUnitId =
-            getString(R.string.ad_mob_test_app_id)
+        interstitialAd.adUnitId = getString(R.string.ad_mob_test_app_id)
         interstitialAd.loadAd(AdRequest.Builder().build())
         interstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
@@ -94,6 +107,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     }
 
     private fun initViews() {
+        localBroadcastManager = LocalBroadcastManager.getInstance(this)
         fragmentPagerAdapter = FragmentPagerAdapter(this)
 
         main_activity_play_image_view.setOnClickListener(this)
@@ -173,6 +187,10 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         }
     }
 
+    private fun updateUI(isPlaying : Boolean) {
+        main_activity_play_image_view.setImageResource(if (isPlaying) R.drawable.pause_button_background else R.drawable.play_button_background)
+    }
+
     override fun onResume() {
         super.onResume()
         RadioSavtaApplication.mediaPlayer?.let {
@@ -233,15 +251,6 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         return isPopped
     }
 
-    override fun onBackPressed() {
-        if (handleInnerFragmentBackStack()) return
-        if (viewPager.currentItem > 0) {
-            goToMainPage()
-            return
-        }
-        super.onBackPressed()
-    }
-
     private fun goToMainPage() = tabLayout.getTabAt(0)?.select()
 
     private fun startService(currentSong: String? = "") {
@@ -252,6 +261,19 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         }
     }
 
+    override fun onBackPressed() {
+        if (handleInnerFragmentBackStack()) return
+        if (viewPager.currentItem > 0) {
+            goToMainPage()
+            return
+        }
+        super.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        localBroadcastManager.unregisterReceiver(myBroadcast)
+    }
 }
 
 
