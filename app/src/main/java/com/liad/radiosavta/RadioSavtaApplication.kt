@@ -6,14 +6,26 @@ import android.app.NotificationManager
 import android.content.Context
 import android.media.MediaPlayer
 import android.os.Build
-import android.util.Log
+import com.google.android.gms.analytics.GoogleAnalytics
+import com.google.android.gms.analytics.Tracker
 import com.liad.radiosavta.di.appModule
 import com.liad.radiosavta.utils.Constants
 import org.koin.core.context.startKoin
 
+
 class RadioSavtaApplication : Application() {
 
     companion object {
+        lateinit var sAnalytics : GoogleAnalytics
+        var sTracker : Tracker? = null
+
+        fun getDefaultTracker(): Tracker? {
+            if (sTracker == null){
+                sTracker = sAnalytics.newTracker(R.xml.global_tracker)
+            }
+            return sTracker
+        }
+
         lateinit var instance: Application
             private set
 
@@ -46,7 +58,6 @@ class RadioSavtaApplication : Application() {
         }
 
         fun playAudio() {
-            Log.i("Liad", "Playing audio!")
             if (mediaPlayer == null) {
                 mediaPlayer = initMediaPlayer()
             }
@@ -54,7 +65,6 @@ class RadioSavtaApplication : Application() {
         }
 
         fun pauseAudio() {
-            Log.e("Liad", "Pausing audio!")
             if (mediaPlayer != null) {
                 try {
                     mediaPlayer?.pause()
@@ -69,13 +79,19 @@ class RadioSavtaApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
+        sAnalytics = GoogleAnalytics.getInstance(this)
+        sTracker = getDefaultTracker()
+        sTracker?.enableAutoActivityTracking(true)
+        sTracker?.enableExceptionReporting(true)
+
         createNotificationChannel()
         initMediaPlayer()
+
         startKoin {
             modules(listOf(appModule))
         }
     }
-
 
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

@@ -15,7 +15,7 @@ interface ApiRequest {
     @GET("programs/{programId}")
     fun getProgramById(@Path("programId") id: Int): StatefulLiveData<Program>
 
-    @GET(/*"/title"*/"statistics/server")
+    @GET("title")
     fun getCurrentPlayingSongTitle(): StatefulLiveData<StreamTitle>
 
     @GET("users")

@@ -2,6 +2,7 @@ package com.liad.radiosavta.utils
 
 object Constants {
 
+    const val LOCAL_BROADCAST_UPDATE: String = "LOCAL_BROADCAST_UPDATE"
     const val SPAN_COUNT: Int = 2
     const val NOTIFICATION_CHANNEL_ID: String = "channel_id"
     const val IS_PLAYING: String = "is_playing"

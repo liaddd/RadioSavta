@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import com.google.android.gms.analytics.HitBuilders
+import com.google.android.gms.analytics.Tracker
 import com.liad.radiosavta.R
 
 @SuppressLint("PrivateResource")
@@ -68,4 +70,16 @@ fun String.removeSeconds(): String {
 
 fun View.show(show : Boolean = true){
     visibility = if(show) View.VISIBLE else View.GONE
+}
+
+fun Tracker.sendEvent(category : String = "Play Widget", action : String){
+    send(HitBuilders.EventBuilder()
+        .setCategory(category)
+        .setAction(action)
+        .build())
+}
+
+fun Tracker.sendScreenName(screenName : String){
+    setScreenName(screenName)
+    send(HitBuilders.ScreenViewBuilder().build())
 }

@@ -19,6 +19,7 @@ import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.InterstitialAd
 import com.google.android.gms.ads.MobileAds
+import com.google.android.gms.analytics.Tracker
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.liad.radiosavta.R
@@ -26,7 +27,8 @@ import com.liad.radiosavta.RadioSavtaApplication
 import com.liad.radiosavta.adapters.FragmentPagerAdapter
 import com.liad.radiosavta.services.PlayMusicService
 import com.liad.radiosavta.utils.Constants
-import com.liad.radiosavta.utils.extension.log
+import com.liad.radiosavta.utils.Constants.LOCAL_BROADCAST_UPDATE
+import com.liad.radiosavta.utils.extension.sendEvent
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.banner.*
@@ -38,12 +40,13 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private lateinit var viewPager: ViewPager2
     private lateinit var tabLayout: TabLayout
     private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
-
     private lateinit var localBroadcastManager: LocalBroadcastManager
+
+    private var mTracker : Tracker? = null
 
     private val myBroadcast : BroadcastReceiver = object : BroadcastReceiver(){
         override fun onReceive(context: Context?, intent: Intent?) {
-            updateUI(intent?.extras?.getBoolean(Constants.IS_PLAYING) ?: false)
+            updatePlayPauseButtonState(intent?.extras?.getBoolean(Constants.IS_PLAYING) ?: false)
         }
     }
 
@@ -77,7 +80,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setFullScreen()
+        //setFullScreen()
         setContentView(R.layout.activity_main)
 
         // initialize MobileAds to whole app
@@ -86,7 +89,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         initAdView()
         initViews()
 
-        localBroadcastManager.registerReceiver(myBroadcast , IntentFilter("WOW"))
+        localBroadcastManager.registerReceiver(myBroadcast , IntentFilter(LOCAL_BROADCAST_UPDATE))
     }
 
     private fun initInterstitialAd() {
@@ -107,6 +110,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     }
 
     private fun initViews() {
+        mTracker = RadioSavtaApplication.sTracker
+
         localBroadcastManager = LocalBroadcastManager.getInstance(this)
         fragmentPagerAdapter = FragmentPagerAdapter(this)
 
@@ -178,32 +183,27 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     }
 
     private fun onPlayPauseClicked() {
-        val currentSongName =
-            (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
+        val currentSongName = (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
         RadioSavtaApplication.mediaPlayer?.let {
-            log("MainActivity: $it")
+            mTracker?.sendEvent(action = if(it.isPlaying) "Pause" else "Play")
             startService(currentSongName)
             main_activity_play_image_view.setImageResource(if (it.isPlaying) R.drawable.play_button_background else R.drawable.pause_button_background)
         }
     }
 
-    private fun updateUI(isPlaying : Boolean) {
+    private fun updatePlayPauseButtonState(isPlaying : Boolean) {
         main_activity_play_image_view.setImageResource(if (isPlaying) R.drawable.pause_button_background else R.drawable.play_button_background)
     }
 
     override fun onResume() {
         super.onResume()
+        //mTracker?.sendScreenName(this::class.java.simpleName)
         RadioSavtaApplication.mediaPlayer?.let {
             main_activity_play_image_view.setImageResource(if (it.isPlaying) R.drawable.pause_button_background else R.drawable.play_button_background)
         }
     }
 
-    private fun setFullScreen() {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
-    }
+    private fun setFullScreen() = window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
     // todo Liad - refactor function
     private fun setupTabs(tab: TabLayout.Tab, position: Int) {

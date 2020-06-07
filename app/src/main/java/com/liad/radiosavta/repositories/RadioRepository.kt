@@ -107,8 +107,8 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
 
         getCurrentPlayingSongFromApi().observeForever { songTitle ->
             if (songTitle is StatefulData.Success) {
-                Log.d("Liad", songTitle.data.title)
-                mutableSongTitle.putData(songTitle.data.title)
+                Log.d("Liad", songTitle.data.StreamTitle)
+                mutableSongTitle.putData(songTitle.data.StreamTitle)
             } else if (songTitle is StatefulData.Error) {
                 Log.d("Liad", songTitle.throwable.localizedMessage)
             }

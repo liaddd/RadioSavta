@@ -76,6 +76,9 @@ dependencies {
     // Google Ads
     implementation 'com.google.android.gms:play-services-ads:19.1.0'
 
+    // Google Analytics
+    implementation 'com.google.android.gms:play-services-analytics:17.0.0'
+    
     // Lottie
     implementation "com.airbnb.android:lottie:$lottieVersion"
 
