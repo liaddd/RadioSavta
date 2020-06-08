@@ -1,145 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/program_details_fragment_container"
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@android:color/black"
-        tools:context=".fragments.ProgramDetailsFragment">
+        android:layout_height="wrap_content">
 
-    <androidx.cardview.widget.CardView
-            android:id="@+id/program_details_fragment_image_view_container"
-            android:layout_width="wrap_content"
+    <RelativeLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/program_details_fragment_container"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/size_32dp"
-            app:cardCornerRadius="@dimen/size_5dp"
-            app:cardElevation="@dimen/size_2dp"
-            app:cardUseCompatPadding="true">
+            android:background="@android:color/black"
+            tools:context=".fragments.ProgramDetailsFragment">
 
-        <ImageView
-                android:id="@+id/program_details_fragment_image_view"
-                android:layout_width="@dimen/size_150dp"
+        <androidx.cardview.widget.CardView
+                android:id="@+id/program_details_fragment_image_view_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/size_32dp"
+                app:cardCornerRadius="@dimen/size_5dp"
+                app:cardElevation="@dimen/size_2dp"
+                app:cardUseCompatPadding="true">
+
+            <ImageView
+                    android:id="@+id/program_details_fragment_image_view"
+                    android:layout_width="@dimen/size_150dp"
+                    android:layout_height="@dimen/size_150dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+                android:id="@+id/program_details_fragment_title_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/program_details_fragment_image_view_container"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_24sp" />
+
+        <TextView
+                android:id="@+id/program_details_fragment_secondary_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/program_details_fragment_title_text"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="@dimen/size_16dp"
+                android:layout_marginTop="@dimen/size_8dp"
+                android:layout_marginEnd="@dimen/size_16dp"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_16sp" />
+
+        <LinearLayout
+                android:id="@+id/program_details_time_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/program_details_fragment_secondary_title"
+                android:layout_margin="@dimen/size_16dp"
+                android:gravity="center_horizontal">
+
+            <TextView
+                    android:id="@+id/program_details_fragment_time_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/ic_date_24dp"
+                    android:drawablePadding="@dimen/size_8dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_12sp" />
+
+            <TextView
+                    android:id="@+id/program_details_fragment_hour_text_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="@dimen/size_8dp"
+                    android:drawableStart="@drawable/ic_time_24dp"
+                    android:drawablePadding="@dimen/size_8dp"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/text_12sp" />
+
+        </LinearLayout>
+
+
+        <TextView
+                android:id="@+id/program_details_fragment_presented_by_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/program_details_time_container"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:text="@string/presented_by"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_18sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/program_details_fragment_presented_recycler_view"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/size_150dp"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop" />
-
-    </androidx.cardview.widget.CardView>
-
-    <TextView
-            android:id="@+id/program_details_fragment_title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/program_details_fragment_image_view_container"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/size_16dp"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_24sp" />
-
-    <TextView
-            android:id="@+id/program_details_fragment_secondary_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/program_details_fragment_title_text"
-            android:layout_centerHorizontal="true"
-            android:layout_marginStart="@dimen/size_16dp"
-            android:layout_marginTop="@dimen/size_8dp"
-            android:layout_marginEnd="@dimen/size_16dp"
-            android:gravity="center"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_16sp" />
-
-    <LinearLayout
-            android:id="@+id/program_details_time_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/program_details_fragment_secondary_title"
-            android:layout_margin="@dimen/size_16dp"
-            android:gravity="center_horizontal">
+                android:layout_below="@+id/program_details_fragment_presented_by_text_view"
+                android:layout_centerHorizontal="true"
+                android:orientation="horizontal"
+                android:scrollbars="none"
+                tools:listitem="@layout/presented_by_list_item" />
 
         <TextView
-                android:id="@+id/program_details_fragment_time_text_view"
+                android:id="@+id/program_details_fragment_recorded_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:drawableStart="@drawable/ic_date_24dp"
-                android:drawablePadding="@dimen/size_8dp"
+                android:layout_below="@+id/program_details_fragment_presented_recycler_view"
+                android:layout_centerHorizontal="true"
+                android:text="@string/recorded_shows"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_12sp" />
+                android:textSize="@dimen/text_18sp" />
 
         <TextView
-                android:id="@+id/program_details_fragment_hour_text_view"
+                android:id="@+id/program_details_fragment_no_recorded_show_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginStart="@dimen/size_8dp"
-                android:drawableStart="@drawable/ic_time_24dp"
+                android:layout_below="@+id/program_details_fragment_recorded_text_view"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/size_16dp"
+                android:layout_marginBottom="@dimen/size_32dp"
+                android:drawableTop="@drawable/ic_no_recorded_shows_24dp"
                 android:drawablePadding="@dimen/size_8dp"
+                android:gravity="center_horizontal"
+                android:text="@string/no_recorded_shows_empty_state"
                 android:textColor="@android:color/white"
-                android:textSize="@dimen/text_12sp" />
+                android:textSize="@dimen/text_18sp" />
 
-    </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/program_details_fragment_recorded_shows_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/program_details_fragment_recorded_text_view"
+                android:visibility="gone" />
 
+        <ProgressBar
+                android:id="@+id/program_details_fragment_progress_bar"
+                android:layout_width="@dimen/size_60dp"
+                android:layout_height="@dimen/size_60dp"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
+    </RelativeLayout>
 
-    <TextView
-            android:id="@+id/program_details_fragment_presented_by_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/program_details_time_container"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/size_16dp"
-            android:text="@string/presented_by"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_18sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/program_details_fragment_presented_recycler_view"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/size_150dp"
-            android:layout_below="@+id/program_details_fragment_presented_by_text_view"
-            android:layout_centerHorizontal="true"
-            android:orientation="horizontal"
-            android:scrollbars="none"
-            tools:listitem="@layout/presented_by_list_item" />
-
-    <TextView
-            android:id="@+id/program_details_fragment_recorded_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/program_details_fragment_presented_recycler_view"
-            android:layout_centerHorizontal="true"
-            android:text="@string/recorded_shows"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_18sp" />
-
-    <TextView
-            android:id="@+id/program_details_fragment_no_recorded_show_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/program_details_fragment_recorded_text_view"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/size_16dp"
-            android:drawableTop="@drawable/ic_no_recorded_shows_24dp"
-            android:drawablePadding="@dimen/size_8dp"
-            android:gravity="center_horizontal"
-            android:text="@string/no_recorded_shows_empty_state"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/text_18sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/program_details_fragment_recorded_shows_recycler_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/program_details_fragment_recorded_text_view"
-            android:visibility="gone" />
-
-    <ProgressBar
-            android:id="@+id/program_details_fragment_progress_bar"
-            android:layout_width="@dimen/size_60dp"
-            android:layout_height="@dimen/size_60dp"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
-</RelativeLayout>
+</ScrollView>
 

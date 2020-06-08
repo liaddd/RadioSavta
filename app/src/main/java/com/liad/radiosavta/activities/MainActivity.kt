@@ -6,7 +6,6 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -71,11 +70,11 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     )
 
     private val selectedTabText = listOf(
-        "Home",
-        "Programs",
-        "",
-        "Broadcasters",
-        "Settings"
+        R.string.Home,
+        R.string.Programs,
+        R.string.empty_string,
+        R.string.Broadcasters,
+        R.string.Settings
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -199,11 +198,9 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         super.onResume()
         //mTracker?.sendScreenName(this::class.java.simpleName)
         RadioSavtaApplication.mediaPlayer?.let {
-            main_activity_play_image_view.setImageResource(if (it.isPlaying) R.drawable.pause_button_background else R.drawable.play_button_background)
+            main_activity_play_image_view?.setImageResource(if (it.isPlaying) R.drawable.pause_button_background else R.drawable.play_button_background)
         }
     }
-
-    private fun setFullScreen() = window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
     // todo Liad - refactor function
     private fun setupTabs(tab: TabLayout.Tab, position: Int) {
@@ -216,7 +213,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
             tabIcon.setImageResource(selectedTabIcons[position])
         } else tabIcon.setImageResource(unselectedTabsIcons[position])
 
-        tabText.text = selectedTabText[position]
+        tabText.text = getString(selectedTabText[position])
         tab.customView = customTabView
     }
 
@@ -233,7 +230,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
             tabIcon.setImageResource(unselectedTabsIcons[tab.position])
             tabText.setTextColor(resources.getColor(android.R.color.white, null))
         }
-        tabText.text = selectedTabText[tab.position]
+        tabText.text = getString(selectedTabText[tab.position])
         tab.customView = customTabView
     }
 

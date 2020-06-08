@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">רדיו סבתא</string>
+    <string name="hours">%1$s-%2$s</string>
+    <string name="presented_by">מוצג ע״י</string>
+    <string name="recorded_shows">מופעים מוקלטות</string>
+    <string name="no_recorded_shows_empty_state">לתכנית זו אין מופעים מוקלטים</string>
+    <string name="featured_shows">מופעים מומלצים</string>
+    <string name="coming_soon">בקרוב...</string>
+    <string name="Home">בית</string>
+    <string name="Programs">תכניות</string>
+    <string name="Broadcasters">שדרנים</string>
+    <string name="Settings">הגדרות</string>
+    <string name="empty_string" />
+</resources>

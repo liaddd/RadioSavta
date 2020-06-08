@@ -1,9 +1,14 @@
 <resources>
     <string name="app_name">RadioSavta</string>
-    <string name="lorem_ipsum">Lorem Ipsum Dolor Sit Amet, Consectetur Adispiscing Elit. Nunc Non Erat Interdum, Ultricies Lorem Id</string>
     <string name="hours">%1$s-%2$s</string>
     <string name="presented_by">Presented By</string>
     <string name="recorded_shows">Recorded Shows</string>
     <string name="no_recorded_shows_empty_state">This Program Have no recorded shows</string>
     <string name="featured_shows">Featured Shows</string>
+    <string name="coming_soon">Coming soon...</string>
+    <string name="Home">Home</string>
+    <string name="Programs">Programs</string>
+    <string name="Broadcasters">Broadcasters</string>
+    <string name="Settings">Settings</string>
+    <string name="empty_string" />
 </resources>
