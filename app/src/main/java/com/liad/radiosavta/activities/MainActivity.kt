@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     private fun initInterstitialAd() {
         val interstitialAd = InterstitialAd(this)
-        interstitialAd.adUnitId = getString(R.string.ad_mob_test_app_id)
+        interstitialAd.adUnitId = getString(R.string.ad_view_prod_interstitial_unit_id)
         interstitialAd.loadAd(AdRequest.Builder().build())
         interstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {

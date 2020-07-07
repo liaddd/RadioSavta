@@ -19,18 +19,16 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        setObservers()
+        Handler().postDelayed({
+            setObservers()
+        }, 1000)
     }
 
     private fun setObservers() {
         programsViewModel.getPrograms().observe(this, Observer {
             when (it) {
-                is StatefulData.Success -> {
-                    Handler().postDelayed({
-                        changeActivity(MainActivity::class.java, true)
-                    }, 1000)
-                }
                 is StatefulData.Loading -> {}
+                is StatefulData.Success -> changeActivity(MainActivity::class.java, true)
                 is StatefulData.Error -> toast(this, "Something went wrong O_o")
 
             }

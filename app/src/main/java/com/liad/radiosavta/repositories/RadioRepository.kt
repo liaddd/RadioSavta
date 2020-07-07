@@ -1,6 +1,5 @@
 package com.liad.radiosavta.repositories
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import co.climacell.statefulLiveData.core.*
@@ -107,11 +106,10 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
 
         getCurrentPlayingSongFromApi().observeForever { songTitle ->
             if (songTitle is StatefulData.Success) {
-                Log.d("Liad", songTitle.data.StreamTitle)
                 mutableSongTitle.putData(songTitle.data.StreamTitle)
-            } else if (songTitle is StatefulData.Error) {
+            }/* else if (songTitle is StatefulData.Error) {
                 Log.d("Liad", songTitle.throwable.localizedMessage)
-            }
+            }*/
         }
 
         return mutableSongTitle
