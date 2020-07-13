@@ -6,9 +6,11 @@
     <string name="no_recorded_shows_empty_state">This Program Have no recorded shows</string>
     <string name="featured_shows">Featured Shows</string>
     <string name="coming_soon">Coming soon...</string>
-    <string name="Home">Home</string>
-    <string name="Programs">Programs</string>
-    <string name="Broadcasters">Broadcasters</string>
-    <string name="Settings">Settings</string>
+    <string name="home">Home</string>
+    <string name="programs">Programs</string>
+    <string name="broadcasters">Broadcasters</string>
+    <string name="donate">Donate</string>
     <string name="empty_string" />
+    <string name="becoming_a_patron">RadioSavta Is A Non-Profit Internet Radio Collective
+        \nHelp Us Keeping Rolling By Becoming A Patron</string>
 </resources>

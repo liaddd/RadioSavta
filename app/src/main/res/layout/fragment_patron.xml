@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/black"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".fragments.DonationFragment">
+
+    <ImageView
+            android:id="@+id/fragment_donation_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/charity_icon_dark_large" />
+
+    <TextView
+            android:id="@+id/fragment_donation_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_32dp"
+            android:gravity="center"
+            android:text="@string/becoming_a_patron"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_24sp" />
+
+    <ImageView
+            android:id="@+id/fragment_donation_donate_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/size_60dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/become_a_patron_button" />
+
+</LinearLayout>

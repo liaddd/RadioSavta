@@ -15,7 +15,7 @@ class FragmentPagerAdapter(private var fragmentActivity: FragmentActivity) :
         InnerContainerFragment.newInstance(),
         PlayFragment.newInstance(),
         UsersFragment.newInstance(),
-        SettingsFragment.newInstance()
+        DonationFragment.newInstance()
     )
 
     private fun getProgramClickedListener(): MainFragment.IOnProgramClickedListener {

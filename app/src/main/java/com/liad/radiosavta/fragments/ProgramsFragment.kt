@@ -28,7 +28,7 @@ class ProgramsFragment : Fragment() {
     }
 
     private val programAdapter =
-        ProgramsAdapter().apply { listener = createAdapterListener() }
+        ProgramsAdapter().apply { listener = onProgramClickedListener() }
 
     private val programsViewModel: ProgramsViewModel by inject()
 
@@ -67,7 +67,7 @@ class ProgramsFragment : Fragment() {
         })
     }
 
-    private fun createAdapterListener(): ProgramsAdapter.IProgramListener? {
+    private fun onProgramClickedListener(): ProgramsAdapter.IProgramListener? {
         return object : ProgramsAdapter.IProgramListener {
             override fun onClick(program: Program) {
                 openProgramDetailFragment(program.id)
@@ -80,12 +80,12 @@ class ProgramsFragment : Fragment() {
         if (programDetailsFragment.programId == programId) {
             return
         }
-        activity?.let {
+        parentFragment?.let {
             val bundle = Bundle()
             bundle.putInt(PROGRAM_ID, programId ?: 0)
             programDetailsFragment.arguments = bundle
             changeFragment(
-                /*it.supportFragmentManager*/parentFragment!!.childFragmentManager,
+                it.childFragmentManager,
                 R.id.inner_fragment_frame_layout,
                 programDetailsFragment,
                 true

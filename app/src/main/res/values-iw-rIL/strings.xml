@@ -7,9 +7,11 @@
     <string name="no_recorded_shows_empty_state">לתכנית זו אין מופעים מוקלטים</string>
     <string name="featured_shows">מופעים מומלצים</string>
     <string name="coming_soon">בקרוב...</string>
-    <string name="Home">בית</string>
-    <string name="Programs">תכניות</string>
-    <string name="Broadcasters">שדרנים</string>
-    <string name="Settings">הגדרות</string>
+    <string name="home">בית</string>
+    <string name="programs">תכניות</string>
+    <string name="broadcasters">שדרנים</string>
+    <string name="donate">תרום</string>
     <string name="empty_string" />
+    <string name="becoming_a_patron">רדיוסבתא הוא קולקטיב רדיו ללא מטרות רווח
+        \nעזרו לנו להמשיך להתקדם באמצעות הפיכה לפטרון</string>
 </resources>

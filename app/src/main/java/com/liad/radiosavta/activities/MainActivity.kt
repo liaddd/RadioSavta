@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         R.drawable.ic_music_note_white_24dp,
         0,
         R.drawable.ic_people_white_24dp,
-        R.drawable.ic_settings_white_24dp
+        R.drawable.charity_icon_white_small
     )
 
     private val selectedTabIcons = listOf(
@@ -66,15 +66,15 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         R.drawable.ic_music_note_green_24dp,
         0,
         R.drawable.ic_people_green_24dp,
-        R.drawable.ic_settings_green_24dp
+        R.drawable.ic_charity_icon_selected
     )
 
     private val selectedTabText = listOf(
-        R.string.Home,
-        R.string.Programs,
+        R.string.home,
+        R.string.programs,
         R.string.empty_string,
-        R.string.Broadcasters,
-        R.string.Settings
+        R.string.broadcasters,
+        R.string.donate
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     private fun initInterstitialAd() {
         val interstitialAd = InterstitialAd(this)
-        interstitialAd.adUnitId = getString(R.string.ad_view_prod_interstitial_unit_id)
+        interstitialAd.adUnitId = getString(R.string.ad_view_prod_interstitial_unit_id/*R.string.ad_view_test_interstitial_unit_id*/)
         interstitialAd.loadAd(AdRequest.Builder().build())
         interstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {

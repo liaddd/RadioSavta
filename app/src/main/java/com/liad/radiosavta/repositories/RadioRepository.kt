@@ -36,18 +36,18 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
 
         programsMutableLiveData.putLoading()
 
-        getProgramsFromDatabase().observeOnce(Observer { dbPrograms ->
-            if (dbPrograms.isNullOrEmpty()) {
+        /*getProgramsFromDatabase().observeOnce(Observer { dbPrograms ->
+            if (dbPrograms.isNullOrEmpty()) {*/
                 getProgramsFromApi().observeOnce(Observer { apiPrograms ->
                     if (apiPrograms is StatefulData.Success) {
                         programsMutableLiveData.putData(apiPrograms.data)
                         saveProgramsInDatabase(apiPrograms.data)
                     }
                 })
-            } else {
+            /*} else {
                 programsMutableLiveData.putData(dbPrograms)
             }
-        })
+        })*/
 
         return programsMutableLiveData
     }
@@ -70,18 +70,18 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
         val programMutableStateful = MutableStatefulLiveData<Program>()
         programMutableStateful.putLoading()
 
-        getProgramByIdFromDatabase(id).observeOnce(Observer { dbProgram ->
-            if (dbProgram == null || dbProgram.recorded_shows.isNullOrEmpty()) {
+       /* getProgramByIdFromDatabase(id).observeOnce(Observer { dbProgram ->
+            if (dbProgram == null || dbProgram.recorded_shows.isNullOrEmpty()) {*/
                 getProgramByIdFromApi(id).observeOnce(Observer { apiProgram ->
                     if (apiProgram is StatefulData.Success) {
                         programMutableStateful.putData(apiProgram.data)
                         updateProgramInDatabase(apiProgram.data)
                     }
                 })
-            } else {
+         /*   } else {
                 programMutableStateful.putData(dbProgram)
             }
-        })
+        })*/
 
         return programMutableStateful
     }
@@ -121,18 +121,18 @@ class RadioRepository(radioSavtaDatabase: RadioSavtaDatabase, retrofit: Retrofit
 
         mutableUsersLiveData.putLoading()
 
-        getUsersFromDatabase().observeOnce(Observer { dbUsers ->
-            if (dbUsers.isNullOrEmpty()) {
+        /*getUsersFromDatabase().observeOnce(Observer { dbUsers ->
+            if (dbUsers.isNullOrEmpty()) {*/
                 getUsersFromApi().observeOnce(Observer { apiUsers ->
                     if (apiUsers is StatefulData.Success) {
                         mutableUsersLiveData.putData(apiUsers.data)
-                        saveUsersInDatabase(apiUsers.data)
+                        //saveUsersInDatabase(apiUsers.data)
                     }
                 })
-            } else {
+            /*} else {
                 mutableUsersLiveData.putData(dbUsers)
             }
-        })
+        })*/
 
         return mutableUsersLiveData
     }
