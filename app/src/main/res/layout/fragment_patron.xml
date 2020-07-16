@@ -3,7 +3,6 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/black"
         android:gravity="center"
         android:orientation="vertical"
         tools:context=".fragments.DonationFragment">
@@ -19,15 +18,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/size_32dp"
+            android:textStyle="bold"
             android:gravity="center"
             android:text="@string/becoming_a_patron"
-            android:textColor="@android:color/white"
+            android:textColor="#C9C9C9"
             android:textSize="@dimen/text_24sp" />
 
     <ImageView
             android:id="@+id/fragment_donation_donate_button"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/size_48dp"
             android:layout_margin="@dimen/size_60dp"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"

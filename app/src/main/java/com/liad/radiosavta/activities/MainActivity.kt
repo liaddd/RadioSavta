@@ -1,5 +1,6 @@
 package com.liad.radiosavta.activities
 
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -27,6 +28,7 @@ import com.liad.radiosavta.adapters.FragmentPagerAdapter
 import com.liad.radiosavta.services.PlayMusicService
 import com.liad.radiosavta.utils.Constants
 import com.liad.radiosavta.utils.Constants.LOCAL_BROADCAST_UPDATE
+import com.liad.radiosavta.utils.extension.isProduction
 import com.liad.radiosavta.utils.extension.sendEvent
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,9 +43,9 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     private lateinit var fragmentPagerAdapter: FragmentPagerAdapter
     private lateinit var localBroadcastManager: LocalBroadcastManager
 
-    private var mTracker : Tracker? = null
+    private var mTracker: Tracker? = null
 
-    private val myBroadcast : BroadcastReceiver = object : BroadcastReceiver(){
+    private val myBroadcast: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             updatePlayPauseButtonState(intent?.extras?.getBoolean(Constants.IS_PLAYING) ?: false)
         }
@@ -88,12 +90,13 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         initAdView()
         initViews()
 
-        localBroadcastManager.registerReceiver(myBroadcast , IntentFilter(LOCAL_BROADCAST_UPDATE))
+        localBroadcastManager.registerReceiver(myBroadcast, IntentFilter(LOCAL_BROADCAST_UPDATE))
     }
 
     private fun initInterstitialAd() {
         val interstitialAd = InterstitialAd(this)
-        interstitialAd.adUnitId = getString(R.string.ad_view_prod_interstitial_unit_id/*R.string.ad_view_test_interstitial_unit_id*/)
+        interstitialAd.adUnitId =
+            getString(if (isProduction()) R.string.ad_view_prod_interstitial_unit_id else R.string.ad_view_test_interstitial_unit_id)
         interstitialAd.loadAd(AdRequest.Builder().build())
         interstitialAd.adListener = object : AdListener() {
             override fun onAdLoaded() {
@@ -104,6 +107,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     private fun initAdView() {
         val adView = banner_adView
+        /*adView.adSize = AdSize.BANNER
+        adView.adUnitId = getString(if(isProduction()) R.string.ad_view_prod_banner_unit_id else R.string.ad_view_test_banner_unit_id)*/
         val adRequest = AdRequest.Builder().build()
         adView.loadAd(adRequest)
     }
@@ -132,8 +137,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
 
     override fun onTabReselected(tab: TabLayout.Tab?) {
         tab?.let {
-            if (it.position == 1) {
-                popAllChildStack()
+            when (it.position) {
+                0, 1 -> popAllChildStack()
             }
         }
     }
@@ -164,6 +169,7 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun initTabLayout() {
         tabLayout = main_activity_tab_layout
 
@@ -182,15 +188,16 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener, View.
     }
 
     private fun onPlayPauseClicked() {
-        val currentSongName = (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
+        val currentSongName =
+            (programsViewModel.getCurrentPlayingSongTitle().value as? StatefulData.Success)?.data
         RadioSavtaApplication.mediaPlayer?.let {
-            mTracker?.sendEvent(action = if(it.isPlaying) "Pause" else "Play")
+            mTracker?.sendEvent(action = if (it.isPlaying) "Pause" else "Play")
             startService(currentSongName)
             main_activity_play_image_view.setImageResource(if (it.isPlaying) R.drawable.play_button_background else R.drawable.pause_button_background)
         }
     }
 
-    private fun updatePlayPauseButtonState(isPlaying : Boolean) {
+    private fun updatePlayPauseButtonState(isPlaying: Boolean) {
         main_activity_play_image_view.setImageResource(if (isPlaying) R.drawable.pause_button_background else R.drawable.play_button_background)
     }
 

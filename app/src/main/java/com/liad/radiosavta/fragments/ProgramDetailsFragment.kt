@@ -33,8 +33,7 @@ class ProgramDetailsFragment : Fragment() {
     private lateinit var recordedShowRV: RecyclerView
     private val programsViewModel: ProgramsViewModel by inject()
 
-    private val presentedByAdapter =
-        PresentedByAdapter().apply { listener = getIUserClickedListener() }
+    private val presentedByAdapter = PresentedByAdapter().apply { listener = getIUserClickedListener() }
     private val recordedShowsAdapter = RecordedShowsAdapter()
 
     var programId: Int? = null
@@ -78,7 +77,6 @@ class ProgramDetailsFragment : Fragment() {
                 }
             })
         }
-
     }
 
     private fun populateFields(program: Program) {
@@ -86,8 +84,7 @@ class ProgramDetailsFragment : Fragment() {
         program_details_fragment_secondary_title.text = program.description
         activity?.let {
             Glide.with(it)
-                .load(
-                    program.getCover() ?: program.users?.let { users -> users[0].getProfileImg() })
+                .load(program.getCover() ?: program.users?.let { users -> users[0].getProfileImg() })
                 .into(program_details_fragment_image_view)
         }
 

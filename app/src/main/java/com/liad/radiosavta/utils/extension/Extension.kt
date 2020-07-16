@@ -83,3 +83,6 @@ fun Tracker.sendScreenName(screenName : String){
     setScreenName(screenName)
     send(HitBuilders.ScreenViewBuilder().build())
 }
+
+// TODO Liad - function *not implemented* (gradle 'productFlavors' implementation need's to be fixed first)
+fun isProduction() = true

@@ -27,8 +27,7 @@ class ProgramsFragment : Fragment() {
         fun newInstance(): ProgramsFragment = ProgramsFragment()
     }
 
-    private val programAdapter =
-        ProgramsAdapter().apply { listener = onProgramClickedListener() }
+    private val programAdapter = ProgramsAdapter().apply { listener = onProgramClickedListener() }
 
     private val programsViewModel: ProgramsViewModel by inject()
 
@@ -77,9 +76,9 @@ class ProgramsFragment : Fragment() {
 
     fun openProgramDetailFragment(programId: Int?) {
         val programDetailsFragment = ProgramDetailsFragment.newInstance()
-        if (programDetailsFragment.programId == programId) {
+        /*if (programDetailsFragment.programId == programId) {
             return
-        }
+        }*/
         parentFragment?.let {
             val bundle = Bundle()
             bundle.putInt(PROGRAM_ID, programId ?: 0)

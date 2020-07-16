@@ -9,7 +9,6 @@
             android:id="@+id/program_details_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/black"
             tools:context=".fragments.ProgramDetailsFragment">
 
         <androidx.cardview.widget.CardView

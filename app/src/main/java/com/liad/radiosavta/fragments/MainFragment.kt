@@ -12,6 +12,8 @@ import co.climacell.statefulLiveData.core.StatefulData
 import com.liad.radiosavta.R
 import com.liad.radiosavta.adapters.ProgramsAdapter
 import com.liad.radiosavta.models.Program
+import com.liad.radiosavta.utils.Constants
+import com.liad.radiosavta.utils.extension.changeFragment
 import com.liad.radiosavta.utils.extension.show
 import com.liad.radiosavta.viewmodels.ProgramsViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
@@ -25,7 +27,7 @@ class MainFragment : Fragment() {
 
     private val programsAdapter = ProgramsAdapter().apply { listener = getAdapterListener() }
     private val programsViewModel: ProgramsViewModel by inject()
-    var listener: IOnProgramClickedListener? = null
+    //var listener: IOnProgramClickedListener? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View = inflater.inflate(R.layout.fragment_main, container, false)
 
@@ -46,7 +48,7 @@ class MainFragment : Fragment() {
     private fun setObservers() {
         programsViewModel.getPrograms().observe(viewLifecycleOwner, Observer {
             when (it) {
-                is StatefulData.Success -> programsAdapter.setPrograms(it.data.shuffled())
+                is StatefulData.Success -> programsAdapter.setPrograms(it.data)
                 is StatefulData.Loading -> main_fragment_progress_bar?.show()
                 is StatefulData.Error -> main_fragment_progress_bar?.show(false)
             }
@@ -67,11 +69,23 @@ class MainFragment : Fragment() {
     private fun getAdapterListener(): ProgramsAdapter.IProgramListener? =
         object : ProgramsAdapter.IProgramListener {
             override fun onClick(program: Program) {
-                listener?.onProgramClicked(program)
+                //listener?.onProgramClicked(program)
+                val programDetailsFragment = ProgramDetailsFragment.newInstance()
+                parentFragment?.let {
+                    val bundle = Bundle()
+                    bundle.putInt(Constants.PROGRAM_ID, program.id ?: 0)
+                    programDetailsFragment.arguments = bundle
+                    changeFragment(
+                        it.childFragmentManager,
+                        R.id.main_inner_fragment_frame_layout,
+                        programDetailsFragment,
+                        true
+                    )
+                }
             }
         }
 
-    interface IOnProgramClickedListener {
+    /*interface IOnProgramClickedListener {
         fun onProgramClicked(program: Program)
-    }
+    }*/
 }
